@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Flip&Match</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
+	<style>
+		html, 
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+h1, 
+h3 {
+	font-family: 'Inter';
+	font-size: 5em;
+	text-align: center;
+	color: #2c2c2c;
+}
+
+h3 {
+	font-size: 4em;
+}
+
+
+/*Styles for the dashboard*/
+
+.dashboard {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	flex-wrap: wrap;
+	color: #545454;
+	font-size: 1.2rem;
+}
+
+.dashboard-element {
+	width: 20%;
+	min-width: 100px;
+	text-align: center;
+}
+
+.dashboard-icon {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+#timer, 
+#moves {
+	display: inline-block;
+	line-height: 2rem;
+	width: 5%;
+}
+
+#stars {
+	margin: 0 auto;
+	text-align: center;
+	margin: 3% auto 2%;
+}
+
+.fa-star {
+	color: rgb(49, 49, 49);
+}
+
+#reset {
+	cursor: pointer;
+	font-size: 1.5rem;
+	margin: 1%;
+	color: #545454;
+	float: right;
+}
+
+/*Styles for the difficulty select buttons*/
+
+#form {
+	display: flex;
+	justify-content: space-between;
+}
+
+input {
+	display: none;
+}
+
+label {
+	flex: 1;
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	line-height: 50px;
+	margin: 0;
+	padding: 0;
+	background:  #242424;
+	color: #ffffff;
+	box-shadow: inset 0 -7px 9px -7px rgba(0,0,0,0.7);;
+}
+
+label:nth-of-type(2) {
+	margin: 0 1%;
+}
+
+.checked {
+	box-shadow: none;
+}
+
+/*Styles for the game board*/
+
+.container {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 800px;
+}
+
+.game-board {
+	/* gradiend credit uiGradients */
+	background: #3f3f3f;  
+	background: -webkit-linear-gradient(to bottom, #616161, #262626); 
+	background: linear-gradient(to bottom, #393939, #212121); 
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding: 3%;
+
+}
+
+.card-container {
+	perspective: 1000px;
+	position: relative;
+	margin: 1%;
+}
+
+.card {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: #ece9e6; 
+	backface-visibility: hidden;
+	transition: .5s;
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10%;
+    color: #7f7f7f;
+}
+
+.back {
+	transform: rotateY(180deg);
+	background: #ece9e6; 
+}
+
+.easy {
+	padding-bottom: 48%;
+	width: 48%;
+	font-size: 3rem;
+}
+
+.normal {
+	padding-bottom: 23%;
+	width: 23%;	
+	font-size: 2rem;
+}
+
+.hard {
+	padding-bottom: 14.65%;
+	width: 14.65%;
+	font-size: 1.2rem;
+}
+
+.front-open {
+	transform: rotateY(-180deg);
+}
+
+.back-open {
+	transform: rotateX(0deg);
+}
+
+.back-correct {
+	background: #348f50;  
+	background: -webkit-linear-gradient(to top, #56b4d3, #347f8f); 
+	background: linear-gradient(to top, #56b4d3, #347f8f); 
+	transform: rotateX(0deg);
+	color: #f7f7f7;	
+}
+
+.front-correct {
+	transform: rotateY(-180deg);
+}
+
+/*Modal styles*/
+
+.modal {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	padding-top: 20%;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.4);
+}
+
+.modal-inner {
+	background: #f7f7f7;
+	margin: 0 auto;
+	padding: 20px 40px;
+	width: 70%;
+	max-width: 800px; 
+	border-radius: 20px;
+}
+
+.modal-text {
+	text-align: center;
+}
+
+#replay {
+	margin-top: 5%;
+	cursor: pointer;
+	
+}
+
+.hide {
+	display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+	body {
+		font-size: 12px;
+	}
+}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<h1>Flip&Match</h1>
+		<div class = "dashboard">
+			<div class="dashboard-element">
+				<i class=" dashboard-icon fas fa-stopwatch"></i> <span id="timer"></span>
+			</div>
+			<div class="dashboard-element">
+				<i class=" dashboard-icon fas fa-clone"></i> <span id="moves"></span>
+			</div>
+		</div>
+		<div id="stars">
+			<i class="fas fa-star" id="rating-poor"></i>
+			<i class="fas fa-star" id="rating-average"></i>
+			<i class="fas fa-star" id="rating-perfect"></i>
+		</div>	
+		<div id="form">
+			<input type="radio" id="easyMode"
+			name="difficulty" value="easy">
+			<label for="easyMode">Easy</label>
+			<input type="radio" id="normalMode"
+			name="difficulty" value="normal" checked="checked">
+			<label class="checked" for="normalMode">Normal</label>
+			<input type="radio" id="hardMode"
+			name="difficulty" value="hard">
+			<label for="hardMode">Hard</label>
+		</div>
+		<div class="game-board">
+		</div>
+		<i id = "reset" class="fas fa-redo-alt"></i>
+	</div>
+	<div class="modal">
+		<div class="modal-inner">
+			<h3>Well done!</h3>
+			<p class="modal-text">You solved it in <span id="final-time"></span> seconds with <span id="final-moves"></span> moves</p>
+			<p class="modal-text" id="final-rating"></p>
+			<p class="modal-text" id="replay"> <i class="fas fa-redo-alt"></i> Play again?</p>
+		</div>
+	</div>
+	<script>
+		const icons = ['ambulance', 'anchor', 'balance-scale', 'basketball-ball', 'bath', 'bed', 'beer', 'bicycle', 'binoculars', 'bomb', 'bug', 'car', 'chess-rook', 'chess-queen', 'cloud', 'fighter-jet', 'fire', 'gamepad', 'home', 'sun', 'volleyball-ball', 'chess-knight'];
+const board = document.querySelector('.game-board');
+const reset = document.getElementById('reset');
+const replay = document.getElementById('replay');
+const form = document.getElementById('form');
+const difficulties = document.querySelectorAll("input[name='difficulty']");
+const timer = document.getElementById('timer');
+const ratingPerfect = document.getElementById('rating-perfect');
+const ratingAverage = document.getElementById('rating-average');
+const cardContainers = document.querySelectorAll('.card-container');
+const modal = document.querySelector('.modal');
+let clickCount = 0;
+let selectedCards = [];
+let iconClasses, sec, moves, wrongMoves, correctMoves, difficulty, difficultyClass, setTimer;
+
+//shuffle function from https://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+	var m = array.length, t, i;
+	while (m) {
+		i = Math.floor(Math.random() * m--);
+		t = array[m];
+		array[m] = array[i];
+		array[i] = t;
+	}
+}
+
+// go over the radio buttons and check the difficulty selection
+function checkDifficulty(){
+	[].forEach.call(difficulties, function(input){
+		input.nextElementSibling.classList.remove('checked');
+		console.log(input.nextElementSibling)
+		if (input.value === 'easy' && input.checked === true) {
+			difficulty = 4;
+			difficultyClass = 'easy';
+			input.nextElementSibling.classList.add('checked');
+		} else if (input.value === 'normal' && input.checked === true) {
+			difficulty = 16;
+			difficultyClass = 'normal';
+			input.nextElementSibling.classList.add('checked');
+		} else if (input.value === 'hard' && input.checked === true) {
+			difficulty = 36;
+			difficultyClass = 'hard';
+			input.nextElementSibling.classList.add('checked');
+		}
+	});
+}
+
+function populate(num) {
+	iconClasses = [];
+	clickCount = 0;
+	board.innerHTML = '';
+	//LOGIC IS: shuffle the main array and slice half the number of cards
+	//this is to always get a random selection of icons
+	shuffle(icons);
+	let boardIcons = icons.slice(0, num/2);
+	//duplicate the array values to make pairs and shuffle this new array
+	boardIcons = boardIcons.concat(boardIcons);
+	shuffle(boardIcons);
+	//actually populate HTML
+	const fragment = document.createDocumentFragment();
+	for (let x = 0; x < num; x++) {
+		const cardContainer = document.createElement('div');
+		cardContainer.classList.add('card-container', difficultyClass);
+		const front = document.createElement('div');
+		const back = document.createElement('div');
+		front.classList.add('card', 'front');
+		back.classList.add('card', 'back');
+		const icon = document.createElement('i');
+		icon.classList.add('icon','fas', 'fa-' + boardIcons[x]);
+		back.appendChild(icon);
+		cardContainer.appendChild(front);
+		cardContainer.appendChild(back);
+		fragment.appendChild(cardContainer);
+	}
+	board.appendChild(fragment);
+}
+
+function stopwatch(){
+	sec+=1;
+	if (sec<60) {
+		timer.innerText = sec;
+	} else if (sec<3600) {
+		let minutes = Math.floor(sec/60);
+		let seconds = sec % 60;
+		timer.innerText = minutes+":"+seconds;
+	}
+}
+
+function rating(num) {
+	//star rating differs with difficulty. Allow as many wrong moves as card pairs, and then another 50% to next level. 
+	switch (difficultyClass) {
+		case 'easy' :
+			if (num === 2) {
+				ratingPerfect.classList.add('hide');
+			} else if (num === 3) {
+				ratingAverage.classList.add('hide');
+			};
+			break;
+		case 'normal' :
+			if (num === 8) {
+				ratingPerfect.classList.add('hide');
+			} else if (num === 12) {
+				ratingAverage.classList.add('hide');
+			};
+			break;
+		case 'hard' :
+			if (num === 18) {
+				ratingPerfect.classList.add('hide');
+			} else if (num === 27) {
+				ratingAverage.classList.add('hide');
+			};
+			break;
+	}
+}
+
+function checkwin(num) {
+	//easy won with 2 correct moves, normal with 8 and hard with 18
+	let won;
+	switch (difficultyClass) {
+		case 'easy' :
+			if (num === 2) {
+				won = true;
+			};
+			break;
+		case 'normal' :
+			if (num === 8) {
+				won = true;	
+			};
+			break;
+		case 'hard' :
+			if (num === 18){
+				won = true;
+			};
+			break;
+	};
+	if (won === true) {
+		//wait 1 sec for the cards to flip right side up
+		setTimeout(function(){
+			//fill in and display modal
+			document.getElementById('final-time').innerText = timer.innerText;
+			document.getElementById('final-moves').innerText = moves;
+			document.getElementById('final-rating').innerHTML = document.getElementById('stars').innerHTML;
+			modal.classList.remove('hide');
+			//stop the stopwatch
+			clearInterval(setTimer);
+		}, 1000);
+	}
+}
+
+function matchChecker(e){
+	//LOGIC IS: make sure the click target is a card and prevent doubleclicking 
+	if (e.target.classList.contains('card') && !e.target.classList.contains('front-open')) {
+		//flip the card on click
+		e.target.classList.add('front-open');
+		e.target.nextElementSibling.classList.add('back-open');
+		//keep track of the class of the icons in the clicked cards
+		iconClasses.push(e.target.nextElementSibling.firstChild.classList[2]);
+		//collect the clicked card elements
+		selectedCards.push(e.target);
+		clickCount += 1;
+		//allow only two clicks and then verify the match
+		if (clickCount === 2) {
+			clickCount = 0;
+			//2 clicks make 1 move
+			moves +=1;
+			document.getElementById('moves').innerHTML = moves;
+			//remove the ability to click extra cards for 1 second while the 2 already clicked cards are checked
+			board.removeEventListener('click', matchChecker);
+			setTimeout(function(){
+				board.addEventListener('click', matchChecker);
+			}, 1000);
+			if (iconClasses[0]===iconClasses[1]) {
+				console.log('match');
+				correctMoves += 1;
+				//check if game is won
+				checkwin(correctMoves);
+				iconClasses = [];
+				//add the class 'correct' to keep the matched cards open
+				[].forEach.call(selectedCards, c =>{
+					c.classList.add('front-correct');
+					c.nextElementSibling.classList.add('back-correct');	
+				});
+			} else {
+				console.log('not match');
+				//remove stars if too many wrong moves are made, how many depends on the difficulty
+				wrongMoves +=1;
+				rating(wrongMoves);
+				//wait 1 second before closing mismatching cards, so the player can see what they were
+				setTimeout(function(){
+					iconClasses = [];
+					[].forEach.call(selectedCards, c =>{
+						c.classList.remove('front-open');
+						c.nextElementSibling.classList.remove('back-open');
+						selectedCards = [];
+					});
+				}, 1000);
+			}
+		}
+	}
+}
+
+function startGame() {
+	//cleanup board and reset everything
+	sec = 0; 
+	moves = 0;
+	wrongMoves = 0;
+	correctMoves = 0;
+	timer.innerText = '0';
+	document.getElementById('moves').innerHTML = '0';
+	modal.classList.add('hide');
+	ratingPerfect.classList.remove('hide');
+	ratingAverage.classList.remove('hide');
+	clearInterval(setTimer);
+	//restart game logic
+	checkDifficulty();
+	populate(difficulty);
+	//start the timer on first click
+	board.addEventListener('click', function clickOnce(){
+		clearInterval(setTimer);
+		setTimer = setInterval(stopwatch, 1000);
+		board.removeEventListener('click', clickOnce)
+	});
+}
+
+reset.addEventListener('click', startGame);
+replay.addEventListener('click', startGame);
+form.addEventListener('change', startGame);
+window.addEventListener('click', function(e){
+	if (e.target === modal) {
+		startGame();
+	}
+});
+board.addEventListener('click', matchChecker);
+window.addEventListener('load', startGame);
+	</script>
+</body>
+</html>

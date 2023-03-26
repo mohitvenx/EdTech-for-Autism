@@ -1,0 +1,2956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- X-UA-Compatible meta tag, to render web pages in older versions of Internet Explorer-->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Balloon Pop Maths - a fun, interactive maths game.">
+    <meta name="keywords" content="Maths, Game, Interactive">
+    <meta name="author" content="Mohit Venkatesh">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Link to Balloon Favicon -->
+    <link rel="shortcut icon" href="static/balloon-favicon.ico" type="image/x-icon">
+    <!-- Link to Bootstrap 4.4.1 CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Link to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- Link to Nunito font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Link to Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/7863bec69d.js" crossorigin="anonymous"></script>
+    <!-- Link to Custom CSS -->
+    <!-- Link to Email JS -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <title>Balloon Pop Maths</title>
+</head>
+<body>
+    <!-- Balloon Pop Maths Home Page, Menu -->
+    <section id="heading-section" class="container-sm">
+        <!-- Balloon Pop Maths Heading -->
+        <div class="row">
+            <!-- Screens smaller than md -->
+            <div class="col-12 d-md-none container-heading-main text-center">
+                <a href="index.html">
+                    <h1 class="heading-main">Balloon</h1>
+                    <h1 class="heading-main">Pop
+                        <img src="static/balloon-purple-cropped.png" alt="Purple balloon popping"/>
+                    </h1>
+                    <h1 class="heading-main">Maths</h1>
+                </a>
+            </div>
+            <!-- Screens larger than md -->
+            <div class="col-12 d-none d-md-block container-heading-main-large text-center">
+                <a href="index.html">
+                    <h1 class="heading-main">Balloon Pop<img src="static/balloon-purple-cropped.png" alt="Purple balloon popping"> Maths</h1>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Options -->
+    <section id="options-section" class="container-sm" aria-label="Options Section">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <!-- Game Mode Options -->
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                    <label id="multiply" class="btn btn-xl w-100 btn-info btn-text active">
+                        <input type="radio" aria-label="Multiplication" name="game-mode" checked> x
+                    </label>
+                    <label id="divide" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" aria-label="Division" name="game-mode"> &divide;
+                    </label>
+                    <label id="add" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" aria-label="Addition" name="game-mode"> +
+                    </label>
+                    <label id="subtract" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" aria-label="Subtraction" name="game-mode"> -
+                    </label>
+                </div>
+                <!-- High Score -->
+                <div class="container-button-group d-flex w-100">
+                    <span id="highscore" class="btn-xl-nofill w-100 btn-text-score">High Score: 0 / 10</span> 
+                </div>
+                 <!-- Play Button, hidden until window has finished loading -->
+                <div class="container-button-group d-flex w-100">
+                    <button id="play" type="button" class="btn btn-xxl w-100 btn-info btn-text">PLAY</button>
+                </div>
+                <!-- Audio Controls -->
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                    <label id="audio-on" class="btn btn-xl w-100 btn-info btn-text active">
+                        <input type="radio" aria-label="Audio On" name="audio-on" checked><i class="fas fa-volume-up"></i>
+                    </label>
+                    <label id="audio-off" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" aria-label="Audio Off" name="audio-off"><i class="fas fa-volume-mute"></i>
+                    </label>
+                </div>
+                <!-- Options Button -->
+                <div class="container-button-group d-flex w-100">
+                    <button type="button" data-toggle="collapse" data-target="#options" aria-expanded="false" aria-controls="options" class="btn btn-xl w-100 btn-info btn-text">Options</button>
+                </div>
+            </div>
+        </div>
+        <!-- Collapsing Options -->
+        <div class="row collapse" id="options">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <!-- Options applicable to all games -->
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                    <label id="10q" class="btn btn-xl w-100 btn-info btn-text active">
+                        <input type="radio" name="questions" checked> 10 Questions
+                    </label>
+                    <label id="20q" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" name="questions"> 20 Questions
+                    </label>
+                </div>
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                    <label id="easy" class="btn btn-xl w-100 btn-info btn-text active">
+                        <input type="radio" name="difficulty" checked> Easy
+                    </label>
+                    <label id="medium" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" name="difficulty"> Medium
+                    </label>
+                    <label id="hard" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" name="difficulty"> Hard
+                    </label>
+                </div>
+                <!-- Multiplication and Division game options -->
+                <div id="options-multiply-divide">
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-1" type="button" data-toggle="button" aria-pressed="true"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-toggle active">2x, 5x, 10x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-2" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-toggle">Mixed 1 to 12</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-3" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">1x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-4" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">7x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-5" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">2x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-6" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">8x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-7" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">3x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-8" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">9x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-9" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">4x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-10" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">10x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-11" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">5x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-12" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">11x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-13" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">6x</button>
+                            <span class="container-button"></span>
+                            <button id="btn-mul-div-14" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-mul-div-sticky">12x</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="options-add-subtract">
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-add-sub-1" type="button" data-toggle="button" aria-pressed="true"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-add-sub-toggle active">Mixed to 10</button>
+                            <span class="container-button"></span>
+                            <button id="btn-add-sub-2" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-add-sub-toggle">Mixed to 20</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-add-sub-3" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-add-sub-toggle">Mixed to 50</button>
+                            <span class="container-button"></span>
+                            <button id="btn-add-sub-4" type="button" data-toggle="button" 
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-add-sub-toggle">Mixed to 100</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </section>
+    <!-- Information -->
+    <section id="information-section" class="container-sm" aria-label="Information Section">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="container-button-group d-flex w-100">
+                    <button type="button" data-toggle="collapse" data-target="#information" aria-expanded="false" aria-controls="information" class="btn btn-xl w-100 btn-info btn-text">How To Play</button>
+                </div>
+            </div>
+        </div>
+        <!-- Collapsing Information -->
+        <div class="row collapse" id="information">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <!-- Information Text -->
+                <div class="container-text-information">
+                    <p class="text-information">
+                        Balloon Pop Maths is a fun and engaging interactive maths game designed to help reinforce maths skills, 
+                        and to encourage independent learning. Select game mode (multiply, divide, add or subtract), 
+                        hit play and pop some balloons! 
+                        Number of questions and difficulty level may be selected in the game options. 
+                        Specific groups of questions may also be selected to assist with targeted learning. Please feel free to 
+                        <a href="#modal-contact" data-toggle="modal" data-target="#modal-contact"><strong>contact</strong></a> 
+                        me with suggestions on how I can improve Ballon Pop Maths, or if you need a developer to make your ideas reality!              
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </section>
+    <!-- Game Section -->
+    <section id="game-section" class="container-xl d-none" aria-label="Game Section">
+        <!-- Home Button -->
+        <div id="game-section-home" class="row container-button-game">
+            <div class="col text-left pr-0">
+                <button id="btn-game-section-home" type="button" data-toggle="button" 
+                    class="btn btn-xl btn-info btn-text btn-xl-focus-none">Home
+                </button>
+            </div>
+            <div class="col text-right pl-0">            
+                <div id="score" class="btn btn-xl-nofill btn-text-score d-none">Score: 0 / 20</div>
+            </div>
+        </div>
+        <!-- Game Loader, shown until window has completed loading -->
+        <div id="game-loader" class="container-xl text-center">
+            <div class="container-loader"></div>
+            <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div class="container-loader"></div>
+        </div>
+        <!-- Game Div, hidden until window has completed loading -->
+        <div id="game-canvas-controls" class="d-none">
+            <!-- Game Canvas, 2 panels - stacked on medium and small devices -->
+            <div class="row game-section-balloons p-0 m-0">
+                <div class="col-lg-6 p-0 m-0">
+                    <div class="row canvas-balloon p-0 m-0">
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-left-1"></canvas>
+                            <div id="balloon-answer-text-left-1" class="balloon-answer-text balloon-answer-text-top">8</div>
+                        </div>
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-left-2"></canvas>
+                            <div id="balloon-answer-text-left-2" class="balloon-answer-text balloon-answer-text-bottom">10</div>
+                        </div>
+                    </div>
+                    <div class="row canvas-balloon p-0 m-0">
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-left-3"></canvas>
+                            <div id="balloon-answer-text-left-3" class="balloon-answer-text balloon-answer-text-top">12</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0 m-0">
+                    <div class="row canvas-balloon p-0 m-0">
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-right-1"></canvas>
+                            <div id="balloon-answer-text-right-1" class="balloon-answer-text balloon-answer-text-top">18</div>
+                        </div>
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-right-2"></canvas>
+                            <div id="balloon-answer-text-right-2" class="balloon-answer-text balloon-answer-text-bottom">18</div>
+                        </div>
+                    </div>
+                    <div class="row canvas-balloon p-0 m-0">
+                        <div class="col d-flex justify-content-center p-0 m-0">
+                            <canvas id="canvas-balloon-right-3"></canvas>
+                            <div id="balloon-answer-text-right-3" class="balloon-answer-text balloon-answer-text-top">18</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Game Controls - 3 columns, stacked on small and medium devices -->
+            <div class="row game-section-controls p-0 m-0">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div id="audio-controls" class="col-2">
+                            <i id="mute" class="fas fa-volume-up"></i>
+                        </div>
+                        <div id="health" class="col-8">
+                            <i id="heart1" class="fas fa-heart"></i>
+                            <i id="heart2" class="fas fa-heart"></i>
+                            <i id="heart3" class="fas fa-heart"></i>
+                            <i id="heart4" class="fas fa-heart"></i>
+                            <i id="heart5" class="fas fa-heart"></i>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div id="question">10 x 10</div>                
+                </div>
+                <div class="col-lg-4">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Feedback modal -->
+    <div id="modal-feedback" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-feedback-heading-text" class="modal-title">Modal Title</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-feedback-body-text">Modal content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact modal -->
+    <div id="modal-contact" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-contact-heading-text" class="modal-title">Contact Developer</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- sendMail javascript function run on submit -->
+                    <form id="contact" onsubmit="return sendMail(this);">
+                        <p>Please feel free to contact me with suggestions on how I can improve Balloon Pop Maths, or if you need a developer to make your ideas reality! </p>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" aria-label="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" aria-label="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" name="message" placeholder="Enter message" aria-label="Enter message" maxlength="6000" rows="7" required></textarea>
+                        </div>
+                        <div id="form-buttons" class="text-right">
+                            <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="form-submit" class="btn btn-lg btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="container-sm">
+        <div class="container-footer">
+            <a>Team Harbor</a>
+        </div>
+    </footer>
+    <!-- JavaScript links -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+<style>
+    /*-- Global Variable Declarations--*/
+:root {
+/*-- Fonts--*/
+    --titlefont: "Whale I Tried", sans-serif;
+    --bodyfont: 'Nunito', sans-serif;
+/*-- Colour Palette--*/
+    --purplelight: #908CD9;
+    --purplemed: #9C70BD;
+    --purpledark: #A2529A;
+    --bluemed: #3E8BC6;
+    --bluevlight: #EEFBFF;
+    --redlight: #DC7774;
+    --medgrey: #a9a9a9;
+/*-- Canvas Size--*/
+    --canvassize: calc((100vh - 22.6rem) / 4);
+    --balloontextsize: calc((100vh - 22.6rem) / 14);
+    --balloontextlineheight: calc((100vh - 22.6rem) / 4.4);
+}
+
+/*-- Custom Fonts--*/
+@font-face {
+    font-family: 'Whale I Tried';
+    src: url('static/whale-i-tried.eot');
+    src: url('static/whale-i-tried.eot?#iefix') format('embedded-opentype'),
+         url('static/whale-i-tried.woff2') format('woff2'),
+         url('static/whale-i-tried.woff') format('woff'),
+         url('static/whale-i-tried.ttf')  format('truetype'),
+         url('static/whale-i-tried.svg#Whale I Tried') format('svg');
+}
+
+/*-- HTML--*/
+html {
+    font-size: 62.5%;
+}
+
+/*-- Body--*/
+body {
+    font-family: var(--bodyfont);
+    font-size: 1.6rem;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #7cc0ff, #77c4fe, #72c7fc, #6fcafa, #6ecdf8, #6fd2f7, #71d7f6, #75dcf5, #7de4f5, #86ecf6, #92f4f5, #9efbf5);
+}
+
+/*-- Containers --*/
+.container-heading-main {
+    padding-top: 1.0rem;
+    padding-bottom: 0.5rem;
+}
+
+.container-heading-main-large {
+    padding-top: 3.0rem;
+    padding-bottom: 3.0rem;
+}
+
+.container-button {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.container-button-group {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.container-button-game {
+    padding-top: 1.5rem;
+    padding-bottom: 1.0rem;
+}
+
+.container-loader {
+    padding-top: 9.8rem;
+    padding-bottom: 9.8rem;
+}
+
+.container-footer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.container-text-information {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.container-404 {
+    padding-top: 20rem;
+}
+
+/*-- Headings --*/
+.heading-main {
+    font-family: var(--titlefont);
+    font-size: 6rem;
+    text-align: center;
+    color: var(--bluevlight);
+}
+
+/*-- Heading Image --*/
+.container-heading-main img,
+.container-heading-main-large img {
+    width: 8rem;
+    height: 8rem;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    margin-left: -40px;
+}
+
+/*-- Buttons --*/
+.btn-text {
+    color: var(--bluevlight);
+}
+
+.btn-text-score {
+    color: var(--purpledark);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn-xl {
+    padding: 0.7rem 0.7rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    background-color: var(--purplelight);
+    border-color: var(--bluemed);
+}
+
+.btn-xl-nofill {
+    padding: 0.7rem 0.7rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    border: 2px solid var(--purplelight);
+    border-radius: 0.5rem;
+}
+
+.btn-xxl {
+    padding: 3.35rem 5rem;
+    font-size: 5rem;
+    font-weight: 700;
+    border-radius: 1.0rem;
+    background-color: var(--purplelight);
+    border-color: var(--bluemed);
+}
+
+/*-- Button Hover Styling --*/
+.btn-text-score:hover {
+    color: var(--purpledark);
+    cursor: auto;
+}
+
+/*-- Button Pseudo Class Styling --*/
+.btn-xl-focus-none:focus,
+.btn-xl-focus-none:visited {
+    background-color: var(--purplelight);
+    box-shadow: none;
+    border-color: var(--bluemed);
+}
+
+/*-- Information Text --*/
+.text-information {
+    font-size: 1.7rem;
+    padding: 1.0rem 1.0rem 1.0rem 1.0rem;
+    color: var(--purpledark);
+    border: 2px solid var(--purplelight);
+    border-radius: 0.5rem;
+}
+
+/*-- 404 Error Heading Styling --*/
+.text-404 h4 {
+    font-size: 2.2rem;
+    color: var(--purplemed);
+    font-weight: 700;
+}
+
+/*-- 404 Error Signpost Icon Styling --*/
+.container-404 i {
+    padding-top: 0.5rem;
+    color: var(--purplemed);
+}
+
+/*-- Game Elements --*/
+
+/*-- Game Loader --*/
+/*-- Many thanks to loading.io https://loading.io/css/ --*/
+.lds-grid {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  animation: lds-grid 1.2s linear infinite;
+}
+
+.lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  animation-delay: -1.6s;
+}
+
+@keyframes lds-grid {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/*-- Set row height for balloon canvas elements --*/
+/*-- Row height calculated using viewport height --*/
+.canvas-balloon {
+    height: var(--canvassize);
+}
+
+/*-- Game Canvas --*/
+/*-- Width and height calculated using viewport height --*/
+.canvas-balloon canvas {
+    position: absolute;
+    width: var(--canvassize);
+    height: var(--canvassize);
+    z-index: -1;
+}
+
+/*-- Game Answer Balloon Text --*/
+/*-- Font size, line height, width and height calculated using viewport height --*/
+.balloon-answer-text {
+    position: absolute;
+    color: var(--bluevlight);
+    text-align: center;
+    font-size: var(--balloontextsize);
+    font-weight: 700;
+    line-height: var(--balloontextlineheight);
+    width: var(--canvassize);
+    height: var(--canvassize);
+    z-index: 1;
+    text-shadow: 1px 1px 2px var(--medgrey);
+}
+
+/*-- Game Answer Balloon Text Hover Styling --*/
+.balloon-answer-text:hover {
+  cursor: url('../images/pin.svg'), crosshair; 
+}
+
+/*-- Game Question --*/
+.game-section-controls #question {
+    color: var(--bluevlight);
+    text-align: center;
+    font-size: 5rem;
+    font-weight: 700;
+    border-radius: 1.0rem;
+    background-color: var(--purplelight);
+    border: 1px solid var(--bluemed);
+}
+
+/*-- Game Audio Controls --*/
+#audio-controls i {
+    padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+    font-size: 2rem;
+    text-align: center;
+    color: var(--purplemed);
+}
+
+#audio-controls i:hover {
+    color: var(--purpledark);
+}
+
+/*-- Game Health --*/
+.game-section-controls #health {
+    color: var(--redlight);
+    text-align: center;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.game-section-controls #health i {
+    font-size: 2rem;
+}
+
+/*-- Game Score --*/
+.score {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: var(--purplemed);
+    text-align: right;
+}
+
+/*-- Generic Feedback Modal --*/
+.modal-dialog h2,
+.modal-dialog span {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--purpledark);
+}
+
+.modal-dialog p,
+.modal-dialog input,
+.modal-dialog textarea {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--purpledark);
+}
+
+/*--Footer--*/
+.container-footer a {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--purplemed);
+}
+
+.container-footer i {
+    color: var(--purplemed);
+}
+
+/*--Navigation Links--*/
+.container-heading-main a:active,
+.container-heading-main-large a:active {
+    color: var(--bluevlight);
+    text-decoration: none;
+}
+
+.container-heading-main a:hover,
+.container-heading-main-large a:hover {
+    color: var(--bluevlight);
+    text-decoration: none;
+}
+
+.container-heading-main a:visited,
+.container-heading-main-large a:visited {
+    color: var(--bluevlight);
+    text-decoration: none;
+}
+
+.text-information a:link,
+.container-footer a:link,
+.container-footer i:link {
+    color: var(--purplemed);
+    text-decoration: none;
+}
+
+.container-404 i:visited,
+.text-information a:visited,
+.container-footer a:visited,
+.container-footer i:visited {
+    color: var(--purplemed);
+    text-decoration: none;
+}
+
+.container-404 i:hover,
+.text-information a:hover,
+.container-footer a:hover,
+.container-footer i:hover {
+    color: var(--purpledark);
+    text-decoration: none;
+}
+
+.container-404 i:active,
+.text-information a:active,
+.container-footer a:active,
+.container-footer i:active {
+    color: var(--purpledark);
+    text-decoration: none;
+}
+
+/*-- Bootstrap Class Overrides --*
+
+/*-- Bootstrap Button Class Overrides --*/
+.btn-lg {
+    font-size: 1.6rem;
+}
+
+/*--Bootstrap Button Pseudo Class Overrides--*/
+.btn-info:active {
+    background-color: var(--purpledark);
+}
+
+.btn-info:not(:disabled):not(.disabled).active, .btn-info:not(:disabled):not(.disabled):active {
+    background-color: var(--purpledark);
+}
+
+.btn-info:focus {
+    background-color: var(--purplemed);
+}
+
+.btn-info:hover {
+    background-color: var(--purplemed); 
+}
+
+/*-- Bootstrap Modal Class Overrides --*/
+.modal-content {
+    border: 1px solid var(--purplemed);
+    border-radius: 1.5rem;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--purplemed);
+    background-color: var(--bluevlight);
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+.modal-body {
+    background-color: var(--bluevlight);
+    border-radius: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+/*-- Media Queries --*/
+
+/*-- Media query to re-size heading, reposition heading image and re-size Play button for screen sizes under 680px high --*/
+@media (max-height: 680px) {
+    .heading-main {
+        font-size: 5rem;    
+    }
+    .container-heading-main img, .container-heading-main-large img {
+        margin-top: -0.6rem;
+    }
+    .btn-xxl {
+        padding: 0.5rem 0.5rem;
+        font-size: 4.0rem;
+    }
+}
+
+/*-- Media query to fix balloon text height to a maximum of 5rem for devices over 926px high --*/
+ @media (min-height: 926px) {
+    .balloon-answer-text {
+        font-size: 5rem;
+    }
+ }
+
+/*-- Media query to re-size balloon canvas and text elements for large devices over 992px wide --*/
+ @media (min-width: 992px) {
+    .canvas-balloon {
+        min-height: 22rem;
+    }
+    .canvas-balloon canvas {
+        width: 22rem;
+        height: 22rem;
+    }
+    .balloon-answer-text {
+        font-size: 5rem;
+        line-height: 20rem;
+        width: 22rem;
+        height: 22rem;
+    }
+}
+
+</style>
+
+<script>
+    /**
+* @fileOverview JavaScript Animation Function Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals $, imgBalloonBlue, imgBalloonOrange, imgBalloonPurple, imgBalloonYellow */
+/* globals imgBalloonRed, imgBalloonGreen, imgBalloonYellow */
+/* globals getCanvasSize, returnCanvasID, animateBalloon, initialiseBalloons */
+
+/**
+* [Function to return an array of canvas width and height, given canvas element ID]
+* @param  {[string]}   canvasID     [Canvas ID]
+* @return {[array]}                 [Array of canvas width and height]
+*/
+function getCanvasSize(canvasID) {
+    // Check if canvasID starts with #, otherwise add it
+    if (canvasID.substr(0, 1) != "#") {
+        canvasID = "#" + canvasID;
+    }
+    // Get canvas width and height
+    let cW = $(canvasID).width();
+    let cH = $(canvasID).height();
+    // Add to array
+    let cArray = [cW, cH];
+    return cArray;
+}
+
+/**
+* [Function to draw balloon image on the canvas, given canvasID, image and frame number]
+* @param  {[string]}   canvasID     [Canvas ID]
+* @param  {[object]}   img          [Image object]
+* @param  {[number]}   fno          [Frame number]
+* @return {[object]}                [Canvas context]
+*/
+function drawBalloonImage(canvasID, img, fno) {
+    // Check if canvasID starts with #, otherwise add it
+    if (canvasID.substr(0, 1) != "#") {
+        canvasID = "#" + canvasID;
+    }
+    // Set beginning x position of image frame
+    let beginX = 3072- (fno * 512);
+    // Return canvas element using jQuery
+    let canvasElement =  $(canvasID)[0];
+    // Get canvas context
+    let canvasContext = canvasElement.getContext('2d');
+    // Clear canvas
+    canvasContext.clearRect(0, 0, 300, 150);
+    // Draw balloon image frame
+    canvasContext.drawImage(img, beginX, 0, 512, 512, 0, 0, 300, 150);
+    return(canvasContext);
+}
+
+/**
+* [Function to return canvasID, given balloon text div id]
+* @param  {[string]}    answerTextID    [Balloon answer text div ID]
+* @return {[string]}                    [Canvas ID]
+*/
+function returnCanvasID(answerTextID) {
+    // Check if canvasID starts with #, otherwise add it
+    if (answerTextID.substr(0, 1) != "#") {
+        answerTextID = "#" + answerTextID;
+    }
+    // Return siblings array using jQuery;
+    let sArray = $(answerTextID).siblings();
+    // Get canvas ID
+    let canvasID = sArray[0].id;
+    return(canvasID);
+}
+
+/**
+* [Function to animate balloon popping image on the canvas, given canvasID]
+* @param  {[string]}    canvasID    [Balloon answer text div ID]
+* @return {[number]}                [Timeout ID]
+*/
+function animateBalloon(canvasID) {
+    // Check if canvasID starts with #, otherwise add it
+    if (canvasID.substr(0, 1) != "#") {
+        canvasID = "#" + canvasID;
+    }
+    let img;
+    // Set balloon correct balloon image according to given canvas ID
+    if (canvasID == "#canvas-balloon-left-1") {
+        img = imgBalloonBlue;
+    } else if (canvasID == "#canvas-balloon-left-2") {
+        img = imgBalloonOrange;
+    } else if (canvasID == "#canvas-balloon-left-3") {
+        img = imgBalloonPurple;
+    } else if (canvasID == "#canvas-balloon-right-1") {
+        img = imgBalloonRed;
+    } else if (canvasID == "#canvas-balloon-right-2") {
+        img = imgBalloonGreen;
+    } else if (canvasID == "#canvas-balloon-right-3") {
+        img = imgBalloonYellow;
+    }
+    let balloonTimeout; 
+    // Animate balloon image by drawing 6 frames using setTimeout, then return to frame 1
+    balloonTimeout = setTimeout(drawBalloonImage, 25, canvasID, img, 1);        
+    balloonTimeout = setTimeout(drawBalloonImage, 50, canvasID, img, 2);
+    balloonTimeout = setTimeout(drawBalloonImage, 75, canvasID, img, 3);
+    balloonTimeout = setTimeout(drawBalloonImage, 200, canvasID, img, 4);
+    balloonTimeout = setTimeout(drawBalloonImage, 300, canvasID, img, 5);
+    balloonTimeout = setTimeout(drawBalloonImage, 400, canvasID, img, 6); 
+    balloonTimeout = setTimeout(drawBalloonImage, 500, canvasID, img, 1);
+    return(balloonTimeout);
+}
+
+/**
+* [Function to initialise balloons on animation frame 1]
+*/
+function initialiseBalloons() {
+    // Show all balloon canvas elements
+    $("[id^=canvas-balloon]").show();
+    // Show all balloon text elements
+    $("[id^=balloon-answer-text]").show();
+    // Draw ballooon images in correct canvas elements on animmation frame 1
+    drawBalloonImage("canvas-balloon-left-1", imgBalloonBlue, 1);
+    drawBalloonImage("canvas-balloon-left-2", imgBalloonOrange, 1);
+    drawBalloonImage("canvas-balloon-left-3", imgBalloonPurple, 1);
+    drawBalloonImage("canvas-balloon-right-1", imgBalloonRed, 1);
+    drawBalloonImage("canvas-balloon-right-2", imgBalloonGreen, 1);
+    drawBalloonImage("canvas-balloon-right-3", imgBalloonYellow, 1);
+}
+
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Audio Function Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals $, soundPop, soundDeflate, soundHighScore, soundUnlucky, soundWellDone, bpmSoundEffectsMuted:true */
+
+/**
+* [Function to toggle audio mute]
+* @return {[boolean]}     [bpmSoundEffectsMuted global variable]
+*/
+function muteAudioToggle(){
+    // Check bpmSoundEffectsMuted global variable
+    if (bpmSoundEffectsMuted == false) {
+        // Mute sound effects
+        muteAudio();
+    } else {
+        // Un-mute sound effects
+        unMuteAudio();
+    }
+    return(bpmSoundEffectsMuted);
+}
+
+/**
+* [Function to mute audio]
+* @return {[boolean]}     [bpmSoundEffectsMuted global variable]
+*/
+function muteAudio(){
+    // Mute sound effects
+    soundPop.muted = true;
+    soundDeflate.muted = true;
+    soundHighScore.muted = true;
+    soundUnlucky.muted = true;
+    soundWellDone.muted = true;
+    $("#mute").removeClass("fa-volume-up").addClass("fas fa-volume-mute");
+    $("#audio-on").removeClass("active").attr("aria-pressed", "false");
+    $("#audio-off").addClass("active").attr("aria-pressed", "true");
+    bpmSoundEffectsMuted = true; 
+    return(bpmSoundEffectsMuted);
+}
+
+/**
+* [Function to un-mute audio]
+* @return {[boolean]}     [bpmSoundEffectsMuted global variable]
+*/
+function unMuteAudio() {
+    // Unmute sound effects
+    soundPop.muted = false;
+    soundDeflate.muted = false;
+    soundHighScore.muted = false;
+    soundUnlucky.muted = false;
+    soundWellDone.muted = false;
+    $("#mute").removeClass("fa-volume-mute").addClass("fas fa-volume-up");
+    $("#audio-off").removeClass("active").attr("aria-pressed", "false");
+    $("#audio-on").addClass("active").attr("aria-pressed", "true");
+    bpmSoundEffectsMuted = false;
+    return(bpmSoundEffectsMuted);
+}
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Initialisation Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+
+// Buffer balloon sprite images //
+const imgBalloonBlue = new Image();
+imgBalloonBlue.src = "static/balloon-blue-sprite.png";
+const imgBalloonOrange = new Image();
+imgBalloonOrange.src = "static/balloon-orange-sprite.png";
+const imgBalloonPurple = new Image();
+imgBalloonPurple.src = "static/balloon-purple-sprite.png";
+const imgBalloonRed = new Image();
+imgBalloonRed.src = "static/balloon-red-sprite.png";
+const imgBalloonGreen = new Image();
+imgBalloonGreen.src = "static/balloon-green-sprite.png";
+const imgBalloonYellow = new Image();
+imgBalloonYellow.src = "static/balloon-yellow-sprite.png";
+
+// Buffer sound effects, set volume to 0.6 //
+const soundPop = new Audio("static/pop.mp3");
+soundPop.volume = 0.5;
+const soundDeflate = new Audio("static/deflate.mp3");
+soundDeflate.volume = 0.5;
+const soundHighScore = new Audio("static/high-score.mp3");
+soundHighScore.volume = 0.5;
+const soundUnlucky = new Audio("static/unlucky.mp3");
+soundUnlucky.volume = 0.5;
+const soundWellDone = new Audio("static/well-done.mp3");
+soundWellDone.volume = 0.5;
+
+// Initialise global variables //
+let bpmSoundEffectsMuted = false;
+let bpmGameMode;
+let bpmQno;
+let bpmDifficulty;
+let bpmActiveButtons;
+let bpmOptionArray;
+let bpmQArray;
+let bpmHealthArray;
+let bpmCQ;
+let bpmQCurrent;
+let bpmAnswerArray;
+let bpmScoreArray;
+</script>
+
+
+<script>
+    /**
+* @fileOverview JavaScript Display Interaction Function Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals $ */
+
+/**
+* [Function to return to menu - hides game section and shows heading and options]
+*/
+function returnToMenu() {
+    // Hide game section
+    $("#game-section").hide(400);  
+    // Show heading section 
+    $("#heading-section").show(400);
+    // Show options section 
+    $("#options-section").show(400);
+    // Show information section 
+    $("#information-section").show(400);
+}
+
+/**
+* [Function to hide multiplication and division options buttons and show options buttons for addition and subtraction game]
+*/
+function modeAddSubtract() {
+    // Hide multiply and divide options
+    $("#options-multiply-divide").hide(400);
+    // Show add and subtract options
+    $("#options-add-subtract").show(400);
+    // Make first option button active
+    makeActive("#btn-mul-div-1");
+}
+
+/**
+* [Function to hide addition and subtraction options buttons and show options buttons for multiplication game]
+*/
+function modeMultiply()
+ {
+    // Hide add and subtract options
+    $("#options-add-subtract").hide(400);
+    // Show multiply and divide options
+    $("#options-multiply-divide").show(400);
+    // Make first option button active
+    makeActive("#btn-mul-div-1");
+    // Update button text values
+    $("#btn-mul-div-1").html("2x, 5x, 10x");
+    $("#btn-mul-div-2").html("Mixed 1 to 12");
+    $("#btn-mul-div-3").html("1x");
+    $("#btn-mul-div-4").html("7x");
+    $("#btn-mul-div-5").html("2x");
+    $("#btn-mul-div-6").html("8x");
+    $("#btn-mul-div-7").html("3x");
+    $("#btn-mul-div-8").html("9x");
+    $("#btn-mul-div-9").html("4x");
+    $("#btn-mul-div-10").html("10x");
+    $("#btn-mul-div-11").html("5x");
+    $("#btn-mul-div-12").html("11x");
+    $("#btn-mul-div-13").html("6x");
+    $("#btn-mul-div-14").html("12x");
+}
+
+/**
+* [Function to hide addition and subtraction options buttons and show options buttons for division game]
+*/
+function modeDivide() {
+    // Hide add and subtract options
+    $("#options-add-subtract").hide(400);
+    // Show multiply and divide options
+    $("#options-multiply-divide").show(400);
+    // Make first option button active
+    makeActive("#btn-mul-div-1");
+    // Update button text values
+    $("#btn-mul-div-1").html("&divide2, &divide5, &divide10");
+    $("#btn-mul-div-2").html("Mixed 1 to 12");
+    $("#btn-mul-div-3").html("&divide1");
+    $("#btn-mul-div-4").html("&divide7");
+    $("#btn-mul-div-5").html("&divide2");
+    $("#btn-mul-div-6").html("&divide8");
+    $("#btn-mul-div-7").html("&divide3");
+    $("#btn-mul-div-8").html("&divide9");
+    $("#btn-mul-div-9").html("&divide4");
+    $("#btn-mul-div-10").html("&divide10");
+    $("#btn-mul-div-11").html("&divide5");
+    $("#btn-mul-div-12").html("&divide11");
+    $("#btn-mul-div-13").html("&divide6");
+    $("#btn-mul-div-14").html("&divide12");
+}
+
+/**
+* [Function to return an array of button id strings, given button prefix]
+* @param  {[string]}   btnPrefix        [Button Prefix]
+* @return {[array]}                     [Array of Button ID strings]
+*/
+function returnBtnIdArray(btnPrefix) {
+    let btnArray = $(":button");
+    let btnIdArray = [];
+    let i = 0;
+    for (i = 0; i < btnArray.length; i++) {
+        if (((btnArray[i].id).search(btnPrefix)) > -1) {
+            btnIdArray.push("#" + btnArray[i].id);
+        }
+    }     
+    return(btnIdArray);
+}
+
+/**
+* [Function to make the passed button active, and all other buttons not active]
+* @param  {[string]}   btnId            [Button ID]
+* @return {[string]}                    [Button ID]
+*/
+function makeActive(btnId) {
+    // Set button ID array
+    let btnIdArray = ["#btn-mul-div-1", "#btn-mul-div-2", "#btn-mul-div-3", "#btn-mul-div-4", "#btn-mul-div-5", "#btn-mul-div-6", "#btn-mul-div-7", "#btn-mul-div-8", "#btn-mul-div-9", "#btn-mul-div-10", "#btn-mul-div-11", "#btn-mul-div-12", "#btn-mul-div-13", "#btn-mul-div-14"];
+    // Make all buttons in button ID array not active
+    makeNotActive(btnIdArray);
+    // Make passed button active
+    $(btnId).addClass("active").attr("aria-pressed", "true");
+    return(btnId);
+}
+
+/**
+* [Function to make the passed button active, and all other buttons not active]
+* @param  {[array]}   btnIdArray        [Array of Button ID strings]
+* @return {[array]}                     [Array of Button ID strings]
+*/
+function makeNotActive(btnIdArray) {
+    // Iterate through passed button array, make each button not active
+    for (let btnId of btnIdArray) {
+        $(btnId).removeClass("active").removeClass("focus").attr("aria-pressed", "false");
+    }
+    return(btnIdArray);
+}
+
+/**
+* [Function to check if any other buttons with the .btn-mul-div-sticky class are selected]
+* @param  {[string]}   btnId            [Button ID]
+* @return {[boolean]}                   [Boolean indicating if any other buttons with the .btn-mul-div-sticky class are selected]
+*/
+function checkOtherStickyButtons(btnId) {
+    let mdbtnIdArray = $(".btn-mul-div-sticky");
+    let activeFlag = false;
+    let i = 0;
+    while ((activeFlag == false) && (i < mdbtnIdArray.length)) {
+        if (((mdbtnIdArray[i].id) !== btnId) && (mdbtnIdArray[i].classList.contains("active"))) {
+            activeFlag = true;
+        }
+        i++;
+    }
+    return(activeFlag);
+}
+
+/**
+* [Function to return selected game mode]
+* @return {[string]}                    [Selected game mode]
+*/
+function returnGameMode() {
+    let gameMode = "";
+    // Check active class and set game mode
+    if ($("#multiply").hasClass("active")) {
+        gameMode = "multiply";
+    } else if ($("#divide").hasClass("active")) {
+        gameMode = "divide";
+    } else if ($("#add").hasClass("active")) {
+        gameMode = "add";
+    } else if ($("#subtract").hasClass("active")) {
+        gameMode = "subtract";
+    }
+    return(gameMode);
+}
+
+/**
+* [Function to return selected difficulty level]
+* @return {[string]}                    [Selected difficulty level]
+*/
+function returnDifficulty() {
+    let difficulty = "";
+    // Check active class and set difficulty
+    if ($("#easy").hasClass("active")) {
+        difficulty = "easy";
+    } else if ($("#medium").hasClass("active")) {
+        difficulty = "medium";
+    } else if ($("#hard").hasClass("active")) {
+        difficulty = "hard";
+    } 
+    return(difficulty);
+}
+
+/**
+* [Function to return selected number of questions]
+* @return {[number]}                    [Selected number of questions]
+*/
+/** Function to return number of questions. **/
+function returnQuestions() {
+    let qno = "";
+    // Check active class and set number of questions
+    if ($("#10q").hasClass("active")) {
+        qno = 10;
+    } else if ($("#20q").hasClass("active")) {
+        qno = 20;
+    }
+    return(qno);
+}
+
+/**
+* [Function to return an array of active button ID strings]
+* @param  {[string]}   gameMode         [Game mode]
+* @return {[array]}                     [Array of active Button ID strings]
+*/
+function returnActiveButtons(gameMode) {
+    // Return array of all buttons with a defined ID attribute
+    let btnIdArray = btnArray();
+    // Initialise active button array
+    let btnActiveArray = [];
+    for (let btnId of btnIdArray) {
+        // Add "#" to button ID
+        btnId = "#" + btnId;
+        // Check if button is active, and add to array of it is
+        if ($(btnId).hasClass("active")) {
+            if ((gameMode == "add" || gameMode == "subtract") && ((btnId.substring(1, 12)) == "btn-add-sub")) {
+                btnActiveArray.push(btnId);
+            }
+            if ((gameMode == "multiply" || gameMode == "divide") && ((btnId.substring(1, 12)) == "btn-mul-div")) {
+                btnActiveArray.push(btnId);
+            }
+        }
+    }
+    return(btnActiveArray);
+}
+
+/**
+* [Function to return an array of all button ID strings for all buttons with a defined id attribute]
+* @return {[array]}                     [Array of Button ID strings]
+*/
+function btnArray() {
+    // Initialise button array
+    let btnArray = [];
+    // Iterate through each button and add ID to button array if it has a defined ID
+    $(':button.btn-xl').each(function() {
+        let btnId = (this.id);
+        if (btnId != "") {
+            btnArray.push(btnId);
+        }
+    });
+    return btnArray;
+}
+
+/**
+* [Function to return options array, given array of active button ID's]
+* @param  {[string]}    activeButtons   [Array of active button ID strings]
+* @return {[array]}                     [Array of active option button text value strings]
+*/
+function returnOptionArray (activeButtons) {
+    // Initialise option array
+    let optionArray = [];
+    // Iterate through active button array, get button text value and add to option array
+    for (let [key, btnId] of Object.entries(activeButtons)) {
+        optionArray.push($(btnId).text());
+        key = key;
+    }
+    return(optionArray);
+}
+
+/**
+* [Function to initialise health bar, given difficulty level]
+* @param  {[string]}    difficulty      [Difficulty level]
+* @return {[array]}                     [Health array - array of 2 integers, current health and total health]
+*/
+function initialiseHealthBar(difficulty) {
+    // Initialise health array
+    let healthArray;
+    // Check difficulty level
+    if (difficulty == "easy") {
+        // If difficulty level is "easy", initialise health bar with 5 hearts
+        healthArray = [5, 5];
+        $("#heart1").show();
+        $("#heart2").show();
+        $("#heart3").show();
+        $("#heart4").show();
+        $("#heart5").show();
+    } else if (difficulty == "medium") {
+        // If difficulty level is "medium", initialise health bar with 3 hearts
+        healthArray = [3, 3];
+        $("#heart1").show();
+        $("#heart2").show();
+        $("#heart3").show();
+        $("#heart4").hide();
+        $("#heart5").hide();
+    } else if (difficulty == "hard") {
+        // If difficulty level is "hard", initialise health bar with 1 heart
+        healthArray = [1, 1];
+        $("#heart1").show();
+        $("#heart2").hide();
+        $("#heart3").hide();
+        $("#heart4").hide();
+        $("#heart5").hide();
+    }
+    // Set health bar, given health array of 2 integers from 1 to 5
+    setHealthBar(healthArray);
+    return healthArray;
+}
+
+/**
+* [Function to set health bar, given an array of 2 integers from 1 to 5]
+* @param  {[array]}   healthArray       [Health array - array of 2 integers, current health and total health]
+* @return {[array]}                     [Health array - array of 2 integers, current health and total health]
+*/
+function setHealthBar(healthArray) {
+    // Set current health
+    let currentHealth = healthArray[0];
+    // Set total health
+    let totalHealth = healthArray[1];
+    let i;
+    let hstr;
+    // iterate through all hearts, add "solid" heart icon
+    for (i = 1; i < (totalHealth + 1); i++) {
+        hstr = "#heart" + i;
+        $(hstr).removeClass("far fa-heart").addClass("fas fa-heart");
+    }
+    // iterate through hearts, add "empty" heart icon to reflect current health
+    for (i = (currentHealth + 1); i < (totalHealth + 1); i++) {
+        hstr = "#heart" + i;
+        $(hstr).removeClass("fas fa-heart").addClass("far fa-heart");
+    }
+    return(healthArray);
+}
+
+/**
+* [Function to check high score, returns true or false]
+* @param  {[array]}   highScore         [High score array - array of 2 integers, score and number of questions]
+* @param  {[array]}   scoreArray        [Score array - array of 2 integers, score and number of questions]
+* @return {[boolean]}                   [Boolean]
+*/
+function checkHighScore(highScore, scoreArray) {
+    let res = false;
+    // Check if current score is greater than high score. Check uses a ratio of score divided by number of questions.
+    if (scoreArray[0] > 0) {
+        if (
+            ((scoreArray[0] / scoreArray[1]) > (highScore[0] / highScore[1])) || 
+            ((scoreArray[0] / scoreArray[1]) == ((highScore[0] / highScore[1])) && (scoreArray[1] > highScore[1]))
+            ) {
+        res = true;
+        } 
+    }
+    return res;
+}
+
+/**
+* [Function to get high score, returns an array of 2 integers]
+* @return {[array]}                     [Score array - array of 2 integers, score and number of questions]
+*/
+function getHighScore() {
+    // Get current score string
+    let scoreString = $("#highscore").text();
+    // Split string into temporary array
+    let scoreArrayTemp = scoreString.split(" ");
+    // Initialise score array of 2 integers
+    let scoreArray = [parseInt(scoreArrayTemp[2]), parseInt(scoreArrayTemp[4])];
+    return scoreArray;
+}
+
+/**
+* [Function to set high score, given an array of 2 integers]
+* @param  {[array]}   scoreArray        [Score array - array of 2 integers, score and number of questions]
+* @return {[array]}                     [Score array - array of 2 integers, score and number of questions]
+*/
+function setHighScore(scoreArray) {
+    // Set score string from score array of 2 integers
+    let scoreString = "High Score: " + scoreArray[0] + " / " + scoreArray[1];
+    // Update high score
+    $("#highscore").text(scoreString);
+    return(scoreArray);
+}
+
+/**
+* [Function to set current score, given an array of 2 integers]
+* @param  {[array]}   scoreArray        [Score array - array of 2 integers, score and number of questions]
+* @return {[array]}                     [Score array - array of 2 integers, score and number of questions]
+*/
+function setScore(scoreArray) {
+    // Set score string from score array of 2 integers
+    let scoreString = "Score: " + scoreArray[0] + " / " + scoreArray[1];
+    $("#score").text(scoreString);
+    // Update current score
+    return(scoreArray);
+}
+
+/**
+* [Function to set current question, given a 2 item array of question and answer]
+* @param  {[array]}   qCurrent          [Current question array - 2 item array of question string and answer number]
+* @return {[array]}                     [Current question array - 2 item array of question string and answer number]
+*/
+function setQuestion(qCurrent) {
+    // Set question string from current question array
+    let qString = qCurrent[0];
+    // Update current question
+    $("#question").html(qString);
+    return(qCurrent);
+}
+
+/**
+* [Function to set balloon text, given a 6 item array in random order with 5 wrong answers and 1 correct answer]
+* @param  {[array]}   answerArray       [Answer array - 6 item array in random order with 5 wrong answer numbers and 1 correct answer number]
+* @return {[array]}                     [Answer array - 6 item array in random order with 5 wrong answer numbers and 1 correct answer number]
+*/
+function setBalloons(answerArray) {
+    // Set ballon text from answer array
+    $("#balloon-answer-text-left-1").html(answerArray[0]);
+    $("#balloon-answer-text-left-2").html(answerArray[1]);
+    $("#balloon-answer-text-left-3").html(answerArray[2]);
+    $("#balloon-answer-text-right-1").html(answerArray[3]);
+    $("#balloon-answer-text-right-2").html(answerArray[4]);
+    $("#balloon-answer-text-right-3").html(answerArray[5]);
+    return(answerArray);
+}
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Event Handler Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals $, modeMultiply, initialiseBalloons, modeAddSubtract, modeDivide, playGame, returnBtnIdArray, makeNotActive */
+/* globals checkOtherStickyButtons, checkSelectedAnswer, returnToMenu, muteAudio, unMuteAudio, muteAudioToggle */
+
+// Initialisation Event Handlers //
+
+// Event handler to switch to multiply mode when document is ready //
+$(document).ready(modeMultiply);
+
+// Hide in game score
+$("#score").hide();
+// Hide game canvas and controls.
+$("#game-canvas-controls").hide();
+
+// Show game loader until 1000ms after window has completed loading.
+// Display balloon animation frame 1 in each canvas element
+// Fade-in game score, game canvas and controls 1000ms after window has completed loading //
+$(window).on("load", function() {
+    // Display balloon animation frame 1 in each canvas element
+    initialiseBalloons();
+    // Set timeout
+    setTimeout(function(){
+        // Hide game loader
+        $("#game-loader").hide();
+        // Fade-in score
+        $("#score").removeClass("d-none");
+        $("#score").fadeIn(1000);
+        // Fade-in game canvas and controls
+        $("#game-canvas-controls").removeClass("d-none");
+        $("#game-canvas-controls").fadeIn(1000);
+    }, 1000);     
+});
+
+// Options Event Handlers //
+
+// On click event added to add button to switch to addition and subtraction option mode //
+$("#add").on("click", modeAddSubtract);
+
+// On click event added to subtract button to switch to addition and subtraction option mode //
+$("#subtract").on("click", modeAddSubtract);
+
+// On click event added to multiply button to switch to multiply option mode //
+$("#multiply").on("click", modeMultiply);
+
+// On click event added to divide button to switch to divide option mode //
+$("#divide").on("click", modeDivide);
+
+// On click event added to run playGame function when play button is clicked //
+$("#play").on("click", playGame);
+
+// On click event handler added to multiplication and division options buttons with the .btn-mul-div-toggle class in multiplication and division modes //
+// Removes active class on all other multiplication and division buttons to give toggle behaviour to options buttons with the .btn-mul-div-toggle class //
+$(".btn-mul-div-toggle").click(function(){
+    // Get button ID
+    let btnId = "#" + ($(this)[0].id);
+    // Initialise button ID array
+    let btnIdArray = returnBtnIdArray("btn-mul-div");
+    // Remove clicked button from button ID array
+    let i = btnIdArray.indexOf(btnId);
+    if (i > -1) {
+        btnIdArray.splice(i, 1);
+    }
+    // Make all buttons in button ID array not active
+    makeNotActive(btnIdArray);
+    // Toggle button back on if de-selected;
+    if ($(this).hasClass("active")) {
+        $(this).button('toggle');
+    }
+});
+
+// On click event handler added to all multiplication and division options buttons with the .btn-mul-div-sticky class //
+// Makes the first two multiply and divide option buttons not active //
+// Allows selection of multiple buttons with the .btn-mul-div-sticky class. Checks to see if other sticky buttons //
+// are selected before releasing button selection, to ensure that one option is always selected //
+$(".btn-mul-div-sticky").click(function(){
+    // Initialise button ID array
+    let btnIdArray = ["#btn-mul-div-1", "#btn-mul-div-2"];
+    // Make all buttons in button ID array not active
+    makeNotActive(btnIdArray);
+    // Get button ID
+    let btnId = ($(this)[0].id);
+    // Toggle button back on if de-selected, and no other buttons with the .btn-mul-div-sticky class are selected
+    if (($(this).hasClass("active")) && ((checkOtherStickyButtons(btnId)) == false)) {
+        $(this).button('toggle');
+    }
+});
+
+// On click event handler added to addition and subtraction options buttons with the .btn-add-sub-toggle class in addition and subtraction modes //
+// Removes active class on all other buttons to give toggle behaviour to addition and subtraction options buttons with the .btn-add-sub-toggle class //
+$(".btn-add-sub-toggle").click(function(){
+    // Get button ID
+    let btnId = "#" + ($(this)[0].id);
+    // Initialise button ID array
+    let btnIdArray = returnBtnIdArray("btn-add-sub");
+    // Remove clicked button from button ID array
+    let i = btnIdArray.indexOf(btnId);
+    if (i > -1) {
+        btnIdArray.splice(i, 1);
+    }
+    // Make all buttons in button ID array not active
+    makeNotActive(btnIdArray);
+    // Toggle button back on if de-selected;
+    if ($(this).hasClass("active")) {
+        $(this).button('toggle');
+    }
+});
+
+// Game Event Handlers //
+
+// On click event added to balloon answer text divs to check the selected answer using checkSelectedAnswer function //
+$("#balloon-answer-text-left-1").on("click", checkSelectedAnswer);
+$("#balloon-answer-text-left-2").on("click", checkSelectedAnswer);
+$("#balloon-answer-text-left-3").on("click", checkSelectedAnswer);
+$("#balloon-answer-text-right-1").on("click", checkSelectedAnswer);
+$("#balloon-answer-text-right-2").on("click", checkSelectedAnswer);
+$("#balloon-answer-text-right-3").on("click", checkSelectedAnswer);
+
+// On click event added to game mode home button to hide game section and show heading and options sections //
+$("#btn-game-section-home").on("click", returnToMenu);
+
+// On click event added to options audio off button to mute audio //
+$("#audio-off").on("click", muteAudio);
+
+// On click event added to options audio on button to un-mute audio //
+$("#audio-on").on("click", unMuteAudio);
+
+// On click event added to in-game mute button to toggle audio mute //
+$("#mute").on("click", muteAudioToggle);
+
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Game Logic Function Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals $, bpmGameMode: true, bpmQno: true, bpmDifficulty: true, bpmActiveButtons: true, bpmOptionArray: true */
+/* globals bpmQArray: true, bpmHealthArray: true, bpmCQ: true, bpmQCurrent: true, bpmAnswerArray: true, bpmScoreArray: true */
+/* globals returnGameMode, returnQuestions, returnDifficulty, returnActiveButtons, returnOptionArray, returnQuestionArray */
+/* globals initialiseHealthBar, setQuestion, answerArray, setBalloons, setScore, returnCanvasID, getHighScore, soundPop */
+/* globals animateBalloon, checkHighScore, setHighScore, soundHighScore, soundUnlucky, soundWellDone, returnToMenu, setHealthBar */
+/* globals soundDeflate */
+
+/**
+* [Function to launch game]
+* @return {[array]}                     [Score array - array of 2 numbers, score and number of questions]          
+*/
+function playGame() {
+    // Show all balloon canvas elements
+    $("[id^=canvas-balloon]").show();
+    // Show all balloon text elements
+    $("[id^=balloon-answer-text]").show();
+    // Set global variables 
+    bpmGameMode = returnGameMode();
+    bpmQno = returnQuestions();
+    bpmDifficulty = returnDifficulty();
+    bpmActiveButtons = returnActiveButtons(bpmGameMode);
+    bpmOptionArray = returnOptionArray(bpmActiveButtons);
+    bpmQArray = returnQuestionArray(bpmGameMode, bpmOptionArray, bpmQno);
+    bpmHealthArray = initialiseHealthBar(bpmDifficulty);
+    bpmCQ = 0;
+    bpmQCurrent = setQuestion(bpmQArray[bpmCQ]);
+    bpmAnswerArray = answerArray(bpmGameMode, bpmQCurrent);
+    bpmAnswerArray = setBalloons(bpmAnswerArray);
+    bpmScoreArray = setScore([0, bpmQno]);
+    // Log global variables to console for debugging
+    // console.log(bpmGameMode);
+    // console.log(bpmQno);
+    // console.log(bpmDifficulty);
+    // console.log(bpmActiveButtons);
+    // console.log(bpmOptionArray);
+    // console.log(bpmQArray);
+    // console.log(bpmHealthArray);
+    // console.log(bpmQCurrent);
+    // console.log(bpmAnswerArray);
+    // console.log(bpmScoreArray);
+    // Hide heading section and options section
+    $("#heading-section").hide(400);
+    $("#options-section").hide(400);
+    $("#information-section").hide(400);
+    // Show game section
+    $("#game-section").hide();
+    $("#game-section").removeClass("d-none");
+    $("#game-section").show(1000);     
+    // Return score array
+    return bpmScoreArray;
+}
+
+/**
+* [Function to check selected answer on click of balloon]   
+*/
+function checkSelectedAnswer() {
+    // Add "#" to ID
+    let answerTextID = "#"+ (this.id);
+    // Get canvas ID
+    let canvasID = "#"+ returnCanvasID(answerTextID);
+    // Set selected answer
+    let sAnswer = this.innerHTML;
+    // Set high score
+    let highScore = getHighScore();
+    // Initialise current score
+    let currentScore;
+    // Check selected answer against correct answer from current question array
+    // If answer is correct
+    if (sAnswer == bpmQCurrent[1]) {
+        // Play balloon popping sound
+        soundPop.play();
+        // Show balloon popping animation
+        let balloonTimeout = animateBalloon(canvasID);
+        // Log to console for debugging
+        // console.log("Correct!");
+        // Set current score
+        currentScore = bpmScoreArray[0];
+        // Update global score array variable bpmScoreArray
+        bpmScoreArray = setScore([(currentScore + 1), bpmScoreArray[1]]);
+        // Update global current question variable bpmCQ
+        bpmCQ = bpmCQ + 1;
+        // If current question is less than total questions
+        if (bpmCQ < bpmQno) {
+            // Show all balloon canvas elements
+            $("[id^=canvas-balloon]").fadeIn("fast");
+            // Show all balloon text elements
+            $("[id^=balloon-answer-text]").fadeIn("fast");
+            // Set current question, store in bpmQCurrent global variable
+            bpmQCurrent = setQuestion(bpmQArray[bpmCQ]);
+            // Get answer array, store in bpmAnswerArray global variable
+            bpmAnswerArray = answerArray(bpmGameMode, bpmQCurrent);
+            // Set balloon text using answer array
+            bpmAnswerArray = setBalloons(bpmAnswerArray);
+        } else {
+            // Log to console for debugging
+            // console.log("Well Done! - you scored " +  bpmScoreArray[0] + " out of " + bpmScoreArray[1] + "!") //
+            // Check if score is a new high score
+            if (checkHighScore(highScore, bpmScoreArray)) {
+                // Set high score
+                setHighScore(bpmScoreArray);
+                // Set modal heading to high score
+                $("#modal-feedback-heading-text").text("Awesome - New High Score!!!");
+                // Play high score sound
+                soundHighScore.play();
+            } else { 
+                // If score is less than 4               
+                if ((bpmScoreArray[0]) < 4) {
+                    // Set modal heading to unlucky
+                    $("#modal-feedback-heading-text").text("Unlucky - try again!!");
+                    // Play unlucky sound
+                    soundUnlucky.play();
+                } else {
+                    // Otherwise set modal heading to well done
+                    $("#modal-feedback-heading-text").text("Well Done!!");
+                    // Play well done sound
+                    soundWellDone.play();
+                }
+            }
+            // Set modal body text to score out of number of questions asked
+            $("#modal-feedback-body-text").text("You scored " +  bpmScoreArray[0] + " out of " + bpmScoreArray[1] + "!");
+            // Display feedback modal
+            $('#modal-feedback').modal();
+            // Return to menu
+            returnToMenu();
+        }
+    } else {
+        // Answer is incorrect
+        // Log to console for debugging
+        // console.log("Wrong!")
+        // Get current health
+        let cHealth = bpmHealthArray[0];
+        // If current health is greater than 0
+        if (cHealth > 0) {
+            // Fade out incorrect balloon answer text
+            $(answerTextID).fadeOut("slow");
+            // Fade out incorrect balloon canvas element
+            $(canvasID).fadeOut("slow");
+            // Update health array
+            let healthArray = [(cHealth - 1), bpmHealthArray[1]];
+            // Set health bar, set bpmHealthArray global variable to new health
+            bpmHealthArray = setHealthBar(healthArray);
+            // Play deflate sound
+            soundDeflate.play();
+        } else {
+            // Check high score
+            if (checkHighScore(highScore, bpmScoreArray)) {
+                // Set high score
+                setHighScore(bpmScoreArray);
+                // Set modal heading to high score
+                $("#modal-feedback-heading-text").text("Awesome - New High Score!!!");
+                // Play high score sound
+                soundHighScore.play();
+            } else {
+                // If score is less than 4  
+                if ((bpmScoreArray[0]) < 4) {
+                    // Set modal heading to unlucky
+                    $("#modal-feedback-heading-text").text("Unlucky - try again!!");
+                    // Play unlucky sound
+                    soundUnlucky.play();
+                } else {
+                    // Otherwise set modal heading to well done
+                    $("#modal-feedback-heading-text").text("Well Done!!");
+                    // Play well done sound
+                    soundWellDone.play();
+                }
+            }
+            // Set modal body text to score out of number of questions asked
+            $("#modal-feedback-body-text").text("You scored " +  bpmScoreArray[0] + " out of " + bpmScoreArray[1] + "!");
+            // Display feedback modal
+            $('#modal-feedback').modal();
+            // Return to menu
+            returnToMenu();
+        }
+    }
+}
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Maths Function Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+
+/**
+* [Function to return random question and answer array, given game mode, options and number of questions]
+* @param  {[string]}    gameMode        [Game mode]
+* @param  {[string]}    optionArray     [Array of active option button text value strings]
+* @param  {[number]}    qno             [Number of questions]
+* @return {[array]}                     [Question and answer array - an array of 2 item arrays giving question and answer]
+*/
+function returnQuestionArray (gameMode, optionArray, qno) {
+    let questionArray = [];
+    // Check game mode and run correct question array function
+    if (gameMode == "multiply") {
+        questionArray = returnMultiplicationQuestionArray(optionArray, qno);
+    } else if (gameMode == "divide") {
+        questionArray = returnDivisionQuestionArray(optionArray, qno);
+    } else if (gameMode == "add") {
+        questionArray = returnAdditionQuestionArray(optionArray, qno);        
+    } else if (gameMode == "subtract") {
+        questionArray = returnSubtractionQuestionArray(optionArray, qno);        
+    }
+    return(questionArray);
+}
+
+/**
+* [Function to return random multiplication question and answer array, given options and number of questions]
+* @param  {[string]}    optionArray     [Array of active option button text value strings]
+* @param  {[number]}    qno             [Number of questions]
+* @return {[array]}                     [Question and answer array - an array of 2 item arrays giving question and answer]
+*/
+function returnMultiplicationQuestionArray (optionArray, qno) {
+    // Initialise multiplication question array
+    let mqArray = [];
+    let i;
+    let ttq;
+    let tk;
+    // For 2, 5 and 10 times tables
+    if (optionArray[0] == "2x, 5x, 10x") {
+        let remq = (qno % 3);
+        // Set number of 2 times table questions
+        let no2xQ = Math.floor(qno / 3) + remq;
+        // Set number of 5 times table questions
+        let no5xQ = Math.floor(qno / 3);
+        // Set number of 10 times table questions
+        let no10xQ = Math.floor(qno / 3);
+        // Generate random multiplication questions and add to array
+        for (i = 0; i < no2xQ; i++) {
+            // Generate random question
+            ttq = returnMultiplicationQuestion(2);
+            // Check random question is not already in question array
+            tk = 0;
+            while ((tk < 11) && (checkQuestionArray(ttq, mqArray))) {
+                ttq = returnMultiplicationQuestion(2);
+                tk++;
+            }
+            // Add random question to question array
+            mqArray.push(ttq);
+        }
+        for (i = 0; i < no5xQ; i++) {
+            // Generate random question
+            ttq = returnMultiplicationQuestion(5);
+            // Check random question is not already in question array
+            tk = 0;
+            while ((tk < 11) && (checkQuestionArray(ttq, mqArray))) {
+                ttq = returnMultiplicationQuestion(5);
+                tk++;
+            }
+            // Add random question to question array
+            mqArray.push(ttq);
+        }
+        for (i = 0; i < no10xQ; i++) {
+            // Generate random question
+            ttq = returnMultiplicationQuestion(10);
+            // Check random question is not already in question array
+            tk = 0;
+            while ((tk < 11) && (checkQuestionArray(ttq, mqArray))) {
+                ttq = returnMultiplicationQuestion(10);
+                tk++;
+            }
+            // Add random question to question array
+            mqArray.push(ttq);
+        }
+    } else if (optionArray[0] == "Mixed 1 to 12") {
+        // For mixed 1 to 12
+        let ttno;
+        let ttq;
+        // Generate random multiplication questions and add to array
+        for (i = 0; i < qno; i++) {
+            ttno = Math.floor((Math.random() * 12) + 1);
+            // Generate random question
+            ttq = returnMultiplicationQuestion(ttno);
+            // Check random question is not already in question array
+            tk = 0;
+            while ((tk < 11) && (checkQuestionArray(ttq, mqArray))) {
+                ttq = returnMultiplicationQuestion(ttno);
+                tk++;
+            }
+            // Add random question to question array
+            mqArray.push(ttq);
+        }
+    } else {
+        // For specific times tables
+        let ttk = 0;
+        let ttqstr;
+        let ttqstrnew;
+        for (i = 0; i < qno; i++) {
+            ttqstr = (optionArray[ttk]);
+            ttqstrnew = ttqstr.substring(0, ttqstr.length - 1);
+            // Generate random question
+            ttq = returnMultiplicationQuestion(ttqstrnew);
+            // Check random question is not already in question array
+            tk = 0;
+            while ((tk < 11) && (checkQuestionArray(ttq, mqArray))) {
+                ttq = returnMultiplicationQuestion(ttqstrnew);
+                tk++;
+            }
+            // Add random question to question array
+            mqArray.push(ttq);
+            if (ttk < (optionArray.length - 1)) {
+                ttk = (ttk + 1);
+            } else {
+                ttk = 0;
+            }
+        }
+    }
+    return(mqArray);
+}
+
+/**
+* [Function to return random division question and answer array, given options and number of questions]
+* @param  {[string]}    optionArray     [Array of active option button text value strings]
+* @param  {[number]}    qno             [Number of questions]
+* @return {[array]}                     [Question and answer array - an array of 2 item arrays giving question and answer]
+*/
+function returnDivisionQuestionArray (optionArray, qno) {
+    // Initialise division question array
+    let dqArray = [];
+    let dq;
+    let i;
+    let dk;
+    // For 2, 5 and 10 division questions
+    if ((optionArray[0].substring(1, 2) == "2") && (optionArray[0].substring(5, 6) == "5") && (optionArray[0].substring(9, 11) == "10")) {
+        let remq = (qno % 3);
+        // Set number of 2 division questions
+        let no2Q = Math.floor(qno / 3) + remq;
+        // Set number of 5 division questions
+        let no5Q = Math.floor(qno / 3);
+        // Set number of 10 division questions
+        let no10Q = Math.floor(qno / 3);
+        let dq;
+        // Generate random division questions and add to array
+        for (i = 0; i < no2Q; i++) {
+            // Generate random question
+            dq = returnDivisionQuestion(2);
+            // Check random question is not already in question array
+            dk = 0;
+            while ((dk < 11) && (checkQuestionArray(dq, dqArray))) {
+                dq = returnDivisionQuestion(2);
+                dk++;
+            }
+            // Add random question to question array
+            dqArray.push(dq);
+        }
+        for (i = 0; i < no5Q; i++) {
+            // Generate random question
+            dq = returnDivisionQuestion(5);
+            dk = 0;
+            while ((dk < 11) && (checkQuestionArray(dq, dqArray))) {
+                dq = returnDivisionQuestion(5);
+                dk++;
+            }
+            // Add random question to question array
+            dqArray.push(dq);
+        }
+        for (i = 0; i < no10Q; i++) {
+            // Generate random question
+            dq = returnDivisionQuestion(10);
+            // Check random question is not already in question array
+            dk = 0;
+            while ((dk < 11) && (checkQuestionArray(dq, dqArray))) {
+                dq = returnDivisionQuestion(10);
+                dk++;
+            }
+            // Add random question to question array
+            dqArray.push(dq);
+        }
+    } else if (optionArray[0] == "Mixed 1 to 12") {
+        // For mixed 1 to 12
+        let dno;
+        // Generate random division questions and add to array
+        for (i = 0; i < qno; i++) {
+            dno = Math.floor((Math.random() * 12) + 1);
+            // Generate random question
+            dq = returnDivisionQuestion(dno);
+            // Check random question is not already in question array
+            dk = 0;
+            while ((dk < 11) && (checkQuestionArray(dq, dqArray))) {
+                dq = returnDivisionQuestion(dno);
+                dk++;
+            }
+            // Add random question to question array
+            dqArray.push(dq);
+        }
+    } else {
+        // For specific division questions
+        let ddk = 0;
+        let dqstr;
+        let dqstrnew;
+        // Generate random division questions and add to array
+        for (i = 0; i < qno; i++) {
+            dqstr = (optionArray[ddk]);
+            dqstrnew = dqstr.substring(1, dqstr.length);
+            // Generate random question
+            dq = returnDivisionQuestion(dqstrnew);
+            // Check random question is not already in question array
+            dk = 0;
+            while ((dk < 11) && (checkQuestionArray(dq, dqArray))) {
+                dq = returnDivisionQuestion(dqstrnew);
+                dk++;
+            }
+            // Add random question to question array
+            dqArray.push(dq);
+            // Increment division option counter
+            if (ddk < (optionArray.length - 1)) {
+                ddk = (ddk + 1);
+            } else {
+                ddk = 0;
+            }
+        }
+    }
+    return(dqArray);
+}
+
+/**
+* [Function to return random addition question and answer array, given options and number of questions]
+* @param  {[string]}    optionArray     [Array of active option button text value strings]
+* @param  {[number]}    qno             [Number of questions]
+* @return {[array]}                     [Question and answer array - an array of 2 item arrays giving question and answer]
+*/
+function returnAdditionQuestionArray (optionArray, qno) {
+    // Initialise addition question array
+    let aqArray = [];
+    let qt;
+    let aq;
+    let i;
+    let ak;
+    // Set question type
+    if (optionArray[0] == "Mixed to 10") {
+        qt = 10;
+    } else if (optionArray[0] == "Mixed to 20") {
+        qt = 20;
+    } else if (optionArray[0] == "Mixed to 50") {
+        qt = 50;
+    } else if (optionArray[0] == "Mixed to 100") {
+        qt = 100;
+    }
+    // Return random addition questions and add to array
+    for (i = 0; i < qno; i++) {
+        // Generate random question
+        aq =  returnAdditionQuestion(qt);
+        // Check random question is not already in question array
+        ak = 0;
+        while ((ak < qno) && (checkQuestionArray(aq, aqArray))) {
+           aq =  returnAdditionQuestion(qt);
+           ak++;
+        }
+        // Add random question to question array
+        aqArray.push(aq);
+    }
+    return(aqArray);
+}
+
+/**
+* [Function to return random subtraction question and answer array, given options and number of questions]
+* @param  {[string]}    optionArray     [Array of active option button text value strings]
+* @param  {[number]}    qno             [Number of questions]
+* @return {[array]}                     [Question and answer array - an array of 2 item arrays giving question and answer]
+*/
+function returnSubtractionQuestionArray (optionArray, qno) {
+    // Initialise subtraction question array
+    let sqArray = [];
+    let qt;
+    let sq;
+    let i;
+    let sk;
+    // Set question type
+    if (optionArray[0] == "Mixed to 10") {
+        qt = 10;
+    } else if (optionArray[0] == "Mixed to 20") {
+        qt = 20;
+    } else if (optionArray[0] == "Mixed to 50") {
+        qt = 50;
+    } else if (optionArray[0] == "Mixed to 100") {
+        qt = 100;
+    }
+    // Return random subtraction questions and add to array
+    for (i = 0; i < qno; i++) {
+        // Generate random question
+        sq = returnSubtractionQuestion(qt);
+        // Check random question is not already in question array
+        sk = 0;
+        while ((sk < qno) && (checkQuestionArray(sq, sqArray))) {
+           sq = returnSubtractionQuestion(qt);
+           sk++;
+        }
+        // Add random question to question array
+        sqArray.push(sq);
+        
+    }    
+    return(sqArray);
+}
+
+/**
+* [Function to return random multiplication question and answer array from 1 to 12, given times table number]
+* @param  {[number]}    tno             [Times table number, integer from 1 to 12]
+* @return {[array]}                     [Question and answer array - an array of 2 items giving question and answer]
+*/
+function returnMultiplicationQuestion(tno) {
+    // Set random number between 1 and 12
+    let ttno = Math.floor((Math.random() * 12) + 1);
+    // Set question string
+    let ttqStr = tno.toString() + " x " + ttno.toString();
+    // Set answer
+    let ttAnswer = (tno * ttno);
+    // Set question array
+    let mq = [ttqStr, ttAnswer];
+    return mq;
+}
+
+/**
+* [Function to return random division question and answer array from 1 to 12, given division table number]
+* @param  {[number]}    dno             [Division table number, integer from 1 to 12]
+* @return {[array]}                     [Question and answer array - an array of 2 items giving question and answer]
+*/
+function returnDivisionQuestion(dno) {
+    // Set random number between 1 and 12
+    let dtno = Math.floor((Math.random() * 12) + 1);
+    // Set division sum
+    let dsum = dtno * dno;
+    // Set question string
+    let dqStr = dsum.toString() + " &divide " + dno.toString();
+    // Set answer
+    let dAnswer = (dtno);
+    // Set question array
+    let dq = [dqStr, dAnswer];
+    return dq;
+}
+
+/**
+* [Function to return random addition question and answer array, given maximum sum]
+* @param  {[number]}    maxsum          [Maximum sum]
+* @return {[array]}                     [Question and answer array - an array of 2 items giving question and answer]
+*/
+function returnAdditionQuestion(maxsum) {
+    // Set first random number
+    let no1 = Math.floor((Math.random() * (maxsum / 2)) + 1);
+    // Set second random number
+    let no2 = Math.floor((Math.random() * (maxsum / 2)) + 1);
+    // Set question string
+    let aqStr = no1.toString() + " + " + no2.toString();
+    // Set answer
+    let aqAnswer = (no1 + no2);
+    // Set question array
+    let aq = [aqStr, aqAnswer];
+    return aq;
+}
+
+/**
+* [Function to return random subtraction question and answer array, given maximum sum]
+* @param  {[number]}    maxsum          [Maximum sum]
+* @return {[array]}                     [Question and answer array - an array of 2 items giving question and answer]
+*/
+function returnSubtractionQuestion(maxsum) {
+    // Set first random number
+    let no1 = Math.floor((Math.random() * maxsum) + 1);
+    // Set second random number
+    let no2 = Math.floor((Math.random() * maxsum) + 1);
+    // Set minimum number
+    let minno = Math.min(no1, no2);
+    // Set maximum number
+    let maxno = Math.max(no1, no2);
+    // Set question string
+    let mqStr = maxno.toString() + " - " + minno.toString();
+    // Set answer
+    let mqAnswer = (maxno - minno);
+    // Set question array
+    let mq = [mqStr, mqAnswer];
+    return mq;
+}
+
+/**
+* [Function to check if a new question is already contained in the question array]
+* @param  {[array]}     nq              [New question, 2 item array of question and answer]
+* @return {[array]}     qArray          [Question array, array of 2 item arrays to check]
+*/
+function checkQuestionArray(nq, qArray) {
+    let i = 0;
+    let qCheck = false;
+    while ((qCheck == false) && (i < qArray.length)) {
+        if (qArray[i][0] == nq[0]) {
+            qCheck = true;
+        }
+        i++;
+    }
+    return(qCheck);
+}
+
+/**
+* [Function to generate array of 5 wrong answers and the correct answer, given game mode and current question]
+* @param  {[string]}    gameMode        [Game mode]
+* @param  {[array]}     qCurrent        [Current question array, array of 2 items giving question and answer]
+* @return {[array]}                     [Array of 2 item arrays, 5 wrong answers and 1 correct answer]
+*/
+function answerArray(gameMode, qCurrent) {
+    // Initialise answer array
+    let answerArray = [];
+    // Check game mode, run relevant wrong answer function to add wrong answers to answer array
+    if (gameMode == "multiply") {
+        answerArray = wrongAnswersMultiplication(qCurrent);
+    } else if (gameMode == "divide") {
+        answerArray = wrongAnswersDivision(qCurrent);
+    } else if (gameMode == "add") {
+        answerArray = wrongAnswersAddition(qCurrent);        
+    } else if (gameMode == "subtract") {
+        answerArray = wrongAnswersSubtraction(qCurrent);
+    }
+    // Add correct answer to answer array
+    answerArray.push(qCurrent[1]);
+    // Shuffle answer array to randomise order
+    answerArray = shuffleArray(answerArray);
+    return(answerArray);
+}
+
+/**
+* [Function to generate array of 5 wrong multiplication answers, given current question]
+* @param  {[array]}     qCurrent        [Current question array, array of 2 items giving question and answer]
+* @return {[array]}                     [Array of 2 item arrays, 5 wrong answers and 1 correct answer]
+*/
+function wrongAnswersMultiplication(qCurrent) {
+    // Set question string
+    let qStr = qCurrent[0];
+    // Set question string array from question string
+    let qStrArray = qStr.split(" ");
+    // Set first integer
+    let no1 = parseInt(qStrArray[0]);
+    // Set second integer
+    let no2 = parseInt(qStrArray[2]);
+    // Set correct answer
+    let cA = qCurrent[1];
+    // Initialise wrong answer array
+    let wrongAnswerArray = [];
+    // Add wrong answers to array
+    if (no1 > 1) {
+        wrongAnswerArray.push((no1 - 1) * no2);
+    } else {
+        wrongAnswerArray.push((no1 + 2) * no2);
+    }
+    if (no1 > 2) {
+        wrongAnswerArray.push((no1 - 2) * no2);
+    } else {
+        wrongAnswerArray.push((no1 + 3) * no2);
+    }
+    wrongAnswerArray.push((no1 + 1) * no2);
+    let minInt = ((no1 - 1) * no2);
+    let maxInt = ((no1 + 1) * no2);
+    if (maxInt < 10) {
+        minInt = 0;
+        maxInt = 10;
+    }
+    // Complete wrong answer array
+    wrongAnswerArray = wrongAnswerArrayComplete(wrongAnswerArray, cA, minInt, maxInt);
+    return(wrongAnswerArray);
+}
+
+/**
+* [Function to generate array of 5 wrong division answers, given current question]
+* @param  {[array]}     qCurrent        [Current question array, array of 2 items giving question and answer]
+* @return {[array]}                     [Array of 2 item arrays, 5 wrong answers and 1 correct answer]
+*/
+function wrongAnswersDivision(qCurrent) {
+    // Set question string
+    let qStr = qCurrent[0];
+    // Set question string array from question string
+    let qStrArray = qStr.split(" ");
+    // Set first integer
+    let no1 = parseInt(qStrArray[0]);
+    // Set correct answer
+    let cA = qCurrent[1];
+    // Set minimum integer
+    let minInt = 1;
+    // Set maximum integer
+    let maxInt = 12;
+    // Check minimum integer
+    if (no1 < 12) {
+        maxInt = no1;
+    }
+    // Check maximum integer
+    if (maxInt < 6) {
+        maxInt = 6;
+    }
+    // Add wrong answers to array
+    let wrongAnswerArray = [(cA - 1), (cA + 1), (cA + 2)];
+    // Complete wrong answer array
+    wrongAnswerArray = wrongAnswerArrayComplete(wrongAnswerArray, cA, minInt, maxInt);
+    return(wrongAnswerArray);
+}
+
+/**
+* [Function to generate array of 5 wrong addition answers, given current question]
+* @param  {[array]}     qCurrent        [Current question array, array of 2 items giving question and answer]
+* @return {[array]}                     [Array of 2 item arrays, 5 wrong answers and 1 correct answer]
+*/
+function wrongAnswersAddition(qCurrent) {
+    // Set question string
+    let qStr = qCurrent[0];
+    // Set question string array from question string
+    let qStrArray = qStr.split(" ");
+    // Set first integer
+    let no1 = parseInt(qStrArray[0]);
+    // Set second integer
+    let no2 = parseInt(qStrArray[2]);
+    // Set correct answer
+    let cA = qCurrent[1];
+    // Add wrong answers to array
+    let wrongAnswerArray = [(cA - 1), (cA + 1), (cA + 2)];
+    // Set minimum integer
+    let minInt = (Math.max(no1, no2)) + 1;
+    // Set maximum integer
+    let maxInt = (no1 + no2 + 6);
+    // Complete wrong answer array
+    wrongAnswerArray = wrongAnswerArrayComplete(wrongAnswerArray, cA, minInt, maxInt);
+    return(wrongAnswerArray);    
+}
+
+/**
+* [Function to generate array of 5 wrong subtraction answers, given current question]
+* @param  {[array]}     qCurrent        [Current question array, array of 2 items giving question and answer]
+* @return {[array]}                     [Array of 2 item arrays, 5 wrong answers and 1 correct answer]
+*/
+function wrongAnswersSubtraction(qCurrent) {
+    // Set question string
+    let qStr = qCurrent[0];
+    // Set question string array from question string
+    let qStrArray = qStr.split(" ");
+    // Set first integer   
+    let no1 = parseInt(qStrArray[0]);
+    // Set correct answer
+    let cA = qCurrent[1];
+    // Add wrong answers to array
+    let wrongAnswerArray = [(cA - 1), (cA + 1), (cA + 2)];
+    // Set maximum integer
+    let maxInt = no1 - 1;
+    // Set minimum integer
+    let minInt = 0;
+    // Check maximum integer
+    if (maxInt < 6) {
+        maxInt = 6;
+    }
+    // Complete wrong answer array
+    wrongAnswerArray = wrongAnswerArrayComplete(wrongAnswerArray, cA, minInt, maxInt);
+    return(wrongAnswerArray); 
+}
+
+/**
+* [Function to populate wrong answer array with two randomly generated integers between the two integers given. 
+  Generates random integers until a random integer not already in the array and not equal to the correct answer is found.
+  Returns completed wrong answer array]
+* @param  {[array]}     wrongAnswerArray    [Array of 2 item arrays]
+* @param  {[number]}    cA                  [Correct answer]
+* @param  {[number]}    minInt              [Minimum integer]
+* @param  {[number]}    maxInt              [Maximum integer]
+* @return {[array]}                         [Array of 2 item arrays]
+*/
+function wrongAnswerArrayComplete(wrongAnswerArray, cA, minInt, maxInt) {
+    if ((maxInt - minInt) < 6) {
+        maxInt = minInt + 6;
+    }
+    // Get random integer between 2 integers given
+    let randomInt;
+    randomInt = getRandomIntInclusive(minInt, maxInt);
+    // Check if random integer is in wrong answer array, generate another random integer if it is
+    while ((wrongAnswerArray.includes(randomInt)) || (randomInt == cA)) {
+        randomInt = getRandomIntInclusive(minInt, maxInt);
+    }
+    // Add random integer to wrong answer array
+    wrongAnswerArray.push(randomInt);
+    // Get random integer between 2 integers given
+    randomInt = getRandomIntInclusive(minInt, maxInt);
+    // Check if random integer is in wrong answer array, generate another random integer if it is
+    while ((wrongAnswerArray.includes(randomInt)) || (randomInt == cA)) {
+        randomInt = getRandomIntInclusive(minInt, maxInt);
+    }
+    // Add random integer to wrong answer array
+    wrongAnswerArray.push(randomInt);
+    return(wrongAnswerArray);
+}
+
+/**
+* [Function to generate a random integer between the two integers given. 
+  Function referenced from MDN Web Docs link below:
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random]
+* @param  {[number]}    min             [Minimum integer]
+* @param  {[number]}    max             [Maximum integer]
+* @return {[number]}                    [Integer]
+*/
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/**
+* [Function to randomize an array in place using the Durstenfeld shuffle algorithm. 
+  Function referenced from stack overflow link below, many thanks to Laurens Holst:
+  https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array]
+* @param  {[array]}     arrayToShuffle  [Array to shuffle]
+* @return {[array]}                     [Shuffled array]
+*/
+function shuffleArray(arrayToShuffle) {
+    let j;
+    for (let i = arrayToShuffle.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        [arrayToShuffle[i], arrayToShuffle[j]] = [arrayToShuffle[j], arrayToShuffle[i]];
+    }
+    return(arrayToShuffle);
+}
+
+</script>
+
+<script>
+    /**
+* @fileOverview JavaScript Mail Library.
+* @author <a href="https://github.com/richardhenyash">Richard Ash</a>
+* @version 1.1.1
+*/
+/*jshint esversion: 6 */
+/* globals emailjs */
+
+// Initialise EmailJS with assigned user ID //
+emailjs.init("user_JExUJN7eCUWFqFAl29Mbl");
+
+/**
+* [Function to send email from modal contact form]
+* @param  {[object]}   contactForm      [Contact form object]
+* @return {[boolean]}                   [Boolean - returns false if not succesfull]
+*/
+function sendMail(contactForm) {
+    emailjs.send("PersonalGmail","balloon-pop-maths",{
+        from_name: contactForm.name.value,
+        from_email: contactForm.email.value,
+        message: contactForm.message.value
+    })
+    .then(
+        function(response) {
+            // Log to console for debugging //
+            // console.log("SUCCESS", response); //
+            $("#modal-contact").modal('hide');
+            $("#modal-feedback-heading-text").text("Success!");
+            $("#modal-feedback-body-text").text("Your contact form was submitted succesfully.");
+            $('#modal-feedback').modal();
+        },
+        function(error) {
+            // Log to console for debugging //
+            // console.log("FAILED", error); //
+            $("#modal-contact").modal('hide');
+            $("#modal-feedback-heading-text").text("Oops!");
+            $("#modal-feedback-body-text").text("Your contact form was not submitted.");
+            $('#modal-feedback').modal();
+        }
+    );
+    return false;  // To block from loading a new page
+}
+
+</script>
+
+<script>
+      describe("JavaScript Display Interaction Function Library Testing Utilities", function () {
+      
+      // Test returnBtnIdArray function
+      it("returnBtnIdArray", function () {
+          let btnArray = returnBtnIdArray();
+          expect(btnArray).toBeInstanceOf(Array);
+      });
+
+      // Test returnGameMode function
+      it("returnGameMode", function () {
+          let gameMode = returnGameMode();
+          expect(gameMode).toBeInstanceOf(String);
+      });
+
+      // Test returnDifficulty function
+      it("returnDifficulty", function () {
+          let difficulty = returnDifficulty();
+          expect(difficulty).toBeInstanceOf(String);
+      });
+
+      // Test returnQuestions function
+      it("returnQuestions", function () {
+          let qNo = returnQuestions();
+          expect(qNo).toBeInstanceOf(Number);
+      });
+
+      // Test returnActiveButtons function
+      it("returnActiveButtons", function () {
+          let buttonArray = returnActiveButtons();
+          expect(buttonArray).toBeInstanceOf(Array);
+      });
+
+      // Test returnButtonArray function
+      it("btnArray", function () {
+          let buttonArray = btnArray();
+          expect(buttonArray).toBeInstanceOf(Array);
+      });
+
+      // Test returnOptionArray function
+      it("returnOptionArray", function () {
+          let activeButtons = returnActiveButtons();
+          let optionArray = returnOptionArray(activeButtons);
+          expect(optionArray).toBeInstanceOf(Array);
+      });
+
+      // Test initialiseHealthBar function for "easy" difficulty level
+      it("initialiseHealthBar easy", function () {
+          let healthArray = initialiseHealthBar("easy");
+          expect(healthArray).toBeInstanceOf(Array);
+          expect(healthArray).toEqual[5, 5];
+      });
+
+      // Test initialiseHealthBar function for "medium" difficulty level
+      it("initialiseHealthBar medium", function () {
+          let healthArray = initialiseHealthBar("medium");
+          expect(healthArray).toBeInstanceOf(Array);
+          expect(healthArray).toEqual[3, 3];
+      }); 
+
+      // Test initialiseHealthBar function for "hard" difficulty level
+      it("initialiseHealthBar hard", function () {
+          let healthArray = initialiseHealthBar("hard");
+          expect(healthArray).toBeInstanceOf(Array);
+          expect(healthArray).toEqual[1, 1];
+      });
+
+      // Test setHealthBar function
+      it("setHealthBar", function () {
+          let healthArray = [4, 5];
+          healthArray = setHealthBar(healthArray);
+          expect(healthArray).toBeInstanceOf(Array);
+          expect(healthArray).toEqual[4, 5];
+      });
+
+      // Test checkHighScore function, true condition
+      it("checkHighScore, true", function () {
+          let highScore = [3, 10];
+          let scoreArray = [8, 10];
+          let res = checkHighScore(highScore, scoreArray); 
+          expect(res).toBe(true);
+      });
+
+      // Test checkHighScore function, false condition
+      it("checkHighScore, false", function () {
+          let highScore = [8, 10];
+          let scoreArray = [3, 10];
+          let res = checkHighScore(highScore, scoreArray); 
+          expect(res).toBe(false);
+      });
+  
+      // Test getHighScore function
+      it("getHighScore", function () {
+          let highScore = getHighScore();
+          expect(highScore).toBeInstanceOf(Array);
+      });
+
+      // Test setHighScore function
+      it("setHighScore", function () {
+          let highScore = setHighScore([8, 10]);
+          let highScoreReturn = $("#highscore").html();
+          expect(highScore).toBeInstanceOf(Array);
+          expect(highScoreReturn).toBe("High Score: 8 / 10");
+      });
+  
+      // Test setScore function
+      it("setScore", function () {
+          let scoreArray = setScore([1, 10]);
+          let scoreReturn = $("#score").html();
+          expect(scoreArray).toBeInstanceOf(Array);
+          expect(scoreReturn).toBe("Score: 1 / 10");
+      });
+
+      // Test setQuestion function
+      it("setQuestion", function () {
+          let qCurrent = ["2 x 4", 8];
+          qCurrent = setQuestion(qCurrent);
+          let qReturn = $("#question").html();
+          expect(qReturn).toBe("2 x 4");
+          expect(qCurrent[0]).toBe("2 x 4");
+          expect(qCurrent[1]).toBe(8);
+      });
+
+      // Test setBalloons function
+      it("setBalloons", function () {
+          let answerArray = [2, 4, 6, 8, 10, 12];
+          answerArray = setBalloons(answerArray);
+          expect(answerArray).toBeInstanceOf(Array);
+          expect(answerArray).toEqual([2, 4, 6, 8, 10, 12]);
+          let b1Return = $("#balloon-answer-text-left-1").html();
+          expect(b1Return).toBe("2");
+          let b2Return = $("#balloon-answer-text-left-2").html();
+          expect(b2Return).toBe("4");
+          let b3Return = $("#balloon-answer-text-left-3").html();
+          expect(b3Return).toBe("6");
+          let b4Return = $("#balloon-answer-text-right-1").html();
+          expect(b4Return).toBe("8");
+          let b5Return = $("#balloon-answer-text-right-2").html();
+          expect(b5Return).toBe("10");
+          let b6Return = $("#balloon-answer-text-right-3").html();
+          expect(b6Return).toBe("12");
+      });        
+
+  });
+</script>
+
+<script>
+    describe("JavaScript Maths Function Library Testing Utilities", function () {
+
+// Set an array of all possible "number of questions" options
+let qNoArray = [10, 20];
+// Set an array of all possible "game mode" options
+let gameModeArray = ["multiply", "divide", "add", "subtract"];
+
+// Test returnQuestionArray function with a variety of options set
+// Loop through question number array
+for (let qni = 0; qni < qNoArray.length; qni++) {
+    let qNo = qNoArray[qni];
+    // Loop through game mode array
+    for (let gmi = 0; gmi < gameModeArray.length; gmi++) {
+        let gameMode = gameModeArray[gmi];
+        // Set options to check depending on game mode
+        let optionsToCheck;
+        if (gameMode == "multiply") {
+            optionsToCheck = [["2x, 5x, 10x"], ["Mixed 1 to 12"], ["1x"], ["2x"], ["3x"], ["4x"], ["5x"], ["6x"], ["7x"], ["8x"], ["9x"], ["10x"], ["11x"], ["12x"], ["1x", "2x", "3x", "4x", "5x", "6x"], ["7x", "8x", "9x", "10x", "11x", "12x"]];
+        } else if (gameMode == "divide") {
+            optionsToCheck = [["÷2, ÷5, ÷10"], ["Mixed 1 to 12"], ["÷1"], ["÷2"], ["÷3"], ["÷4"], ["÷5"], ["÷6"], ["÷7"], ["÷8"], ["÷9"], ["÷10"], ["÷11"], ["÷12"], ["÷1", "÷2", "÷3", "÷4", "÷5", "÷6"], ["÷7", "÷8", "÷9", "÷10", "÷11", "÷12"]];
+        } else if (gameMode == "add" || gameMode == "subtract") {
+        optionsToCheck = [["Mixed to 10"], ["Mixed to 20"], ["Mixed to 50"], ["Mixed to 100"]];
+        }
+        // Loop through options to check
+        for (let oni = 0; oni < optionsToCheck.length; oni++) {
+            let optionArray = optionsToCheck[oni];
+            // Set test function string
+            let teststr = "returnQuestionArray " + gameMode + " " + optionArray + " " + qNo + " Questions";
+            // returnQuestionArray Test function
+            it(teststr, function () {
+                let qArray = returnQuestionArray(gameMode, optionArray, qNo);
+                expect(qArray).toBeInstanceOf(Array);
+                expect(qArray).toHaveSize(qNo);
+            });
+        }
+    }
+}
+
+// Test returnMultiplicationQuestion function with all possible options
+for (let tno = 1; tno < 13; tno++) {
+    // Set test function string
+    let teststr = "returnMultiplicationQuestion " + tno;
+    // returnMultiplicationQuestion Test function
+    it(teststr, function () {
+        let mQ = returnMultiplicationQuestion(tno);
+        let mQstr = mQ[0];
+        let mQno = mQ[1];
+        let mQArray = mQstr.split(" ");
+        let mQtno1 = Number(mQArray[0]);
+        let mQtno2 = Number(mQArray[2]);
+        expect(mQ).toBeInstanceOf(Array);
+        expect(mQ).toHaveSize(2);
+        expect(mQstr).toBeInstanceOf(String);
+        expect(mQno).toBeInstanceOf(Number);
+        expect(mQno).toBe(mQtno1 * mQtno2);
+    });
+}
+
+// Test returnDivisionQuestion function with all possible options
+for (let dno = 1; dno < 13; dno++) {
+    // Set test function string
+    let teststr = "returnDivisionQuestion " + dno;
+    // returnDivisionQuestion Test function
+    it(teststr, function () {
+        let dQ = returnDivisionQuestion(dno);
+        let dQstr = dQ[0];
+        let dQno = dQ[1];
+        let dQArray = dQstr.split(" ");
+        let dQtno1 = Number(dQArray[0]);
+        let dQtno2 = Number(dQArray[2]);
+        expect(dQ).toBeInstanceOf(Array);
+        expect(dQ).toHaveSize(2);
+        expect(dQstr).toBeInstanceOf(String);
+        expect(dQno).toBeInstanceOf(Number);
+        expect(dQno).toBe(dQtno1 / dQtno2);
+    });
+}
+
+// Test returnAdditionQuestion function with all possible options
+// Set an array of all possible "maximum sum" options
+let maxSumArray = [10, 20, 50, 100];
+// Loop through maximum sum array
+for (let msi = 0; msi < maxSumArray.length; msi++) {
+    let maxsum = maxSumArray[msi];
+    // Set test function string
+    let teststr = "returnAdditionQuestion " + maxsum;
+    // returnAdditionQuestion Test function
+    it(teststr, function () {
+        let aQ = returnAdditionQuestion(maxsum);
+        let aQstr = aQ[0];
+        let aQno = aQ[1];
+        let aQArray = aQstr.split(" ");
+        let aQtno1 = Number(aQArray[0]);
+        let aQtno2 = Number(aQArray[2]);
+        expect(aQ).toBeInstanceOf(Array);
+        expect(aQ).toHaveSize(2);
+        expect(aQstr).toBeInstanceOf(String);
+        expect(aQno).toBeInstanceOf(Number);
+        expect(aQno).toBe(aQtno1 + aQtno2);
+    });
+}
+
+// Test returnSubtractionQuestion function with all possible options
+// Set an array of all possible "maximum sum" options
+maxSumArray = [10, 20, 50, 100];
+// Loop through maximum sum array
+for (let msi = 0; msi < maxSumArray.length; msi++) {
+    let maxsum = maxSumArray[msi];
+    // Set test function string
+    let teststr = "returnSubtractionQuestion " + maxsum;
+    // returnSubtractionQuestion Test function
+    it(teststr, function () {
+        let sQ = returnSubtractionQuestion(maxsum);
+        let sQstr = sQ[0];
+        let sQno = sQ[1];
+        let sQArray = sQstr.split(" ");
+        let sQtno1 = Number(sQArray[0]);
+        let sQtno2 = Number(sQArray[2]);
+        expect(sQ).toBeInstanceOf(Array);
+        expect(sQ).toHaveSize(2);
+        expect(sQstr).toBeInstanceOf(String);
+        expect(sQno).toBeInstanceOf(Number);
+        expect(sQno).toBe(sQtno1 - sQtno2);
+    });
+}
+
+// Test checkQuestionArray function
+it("checkQuestionArray", function () {
+    let qArray = [["5 x 9", 45], ["2 x 1", 2], ["2 x 12", 24]];
+    // Should return true
+    let qaC = checkQuestionArray(["2 x 1", 2], qArray);
+    expect(qaC).toBe(true);
+    // Should return false;
+    qaC = checkQuestionArray(["2 x 2", 4], qArray);
+    expect(qaC).toBe(false);
+});
+
+// answerArray Test function
+it("answerArray", function () {
+    let qArray = answerArray("multiply", ["2 x 10", 20]);
+    expect(qArray).toBeInstanceOf(Array);
+    expect(qArray).toHaveSize(6);
+});
+
+// Test wrongAnswersMultiplication function for all possible questions in multiplication game mode
+// Loop through all times tables
+for (let ttk1 = 1; ttk1 < 13; ttk1++) {
+    for (let ttk2 = 1; ttk2 < 13; ttk2++) {
+        let qstr = ttk1 + " x " + ttk2;
+        let qa = (ttk1 * ttk2);
+        let qCurrent = [qstr, qa];
+        // Set test function string
+        let teststr = "wrongAnswersMultiplication " + qCurrent;
+        // wrongAnswersMultiplication Test function
+        it(teststr, function () {
+            let qArray = wrongAnswersMultiplication(qCurrent);
+            expect(qArray).toBeInstanceOf(Array);
+            expect(qArray).toHaveSize(5);
+        });
+    }
+}
+
+// Test wrongAnswersDivision function for all possible questions in division game mode
+// Loop through all division tables
+for (let ttk1 = 1; ttk1 < 13; ttk1++) {
+    for (let ttk2 = 1; ttk2 < 13; ttk2++) {
+        let sum = (ttk1 * ttk2);
+        let qstr = sum + " &divide " + ttk2;
+        let qa = (sum / ttk2);
+        let qCurrent = [qstr, qa];
+        // Set test function string
+        let teststr = "wrongAnswersDivision " + qCurrent;
+        // wrongAnswersDivision Test function
+        it(teststr, function () {
+            let qArray = wrongAnswersDivision(qCurrent);
+            expect(qArray).toBeInstanceOf(Array);
+            expect(qArray).toHaveSize(5);
+        });
+    }
+}
+
+// Test wrongAnswersAddition function for all possible questions in addition game mode
+for (let ttk1 = 1; ttk1 < 51; ttk1++) {
+    for (let ttk2 = 1; ttk2 < 51; ttk2++) {
+        let qstr = ttk1 + " + " + ttk2;
+        let qa = (ttk1 + ttk2);
+        let qCurrent = [qstr, qa];
+        // Set test function string
+        let teststr = "wrongAnswersAddition " + qCurrent;
+        // wrongAnswersAddition Test function
+        it(teststr, function () {
+            let qArray = wrongAnswersAddition(qCurrent);
+            expect(qArray).toBeInstanceOf(Array);
+            expect(qArray).toHaveSize(5);
+        });
+    }
+}    
+
+// Test wrongAnswersSubtraction function for all possible questions in subtraction game mode
+for (let ttk1 = 1; ttk1 < 100; ttk1++) {
+    for (let ttk2 = 1; ttk2 < 100; ttk2++) {
+        let minno = Math.min(ttk1, ttk2);
+        let maxno = Math.max(ttk1, ttk2);
+        let qstr = maxno + " - " + minno;
+        let qa = (maxno - minno);
+        let qCurrent = [qstr, qa];
+        // Set test function string
+        let teststr = "wrongAnswersSubtraction " + qCurrent;
+        // wrongAnswersSubtraction Test function
+        it(teststr, function () {
+            let qArray = wrongAnswersSubtraction(qCurrent);
+            expect(qArray).toBeInstanceOf(Array);
+            expect(qArray).toHaveSize(5);
+        });
+    }
+}
+
+// Test wrongAnswerArrayComplete function
+it("wrongAnswerArrayComplete", function () {
+    let qArray =  wrongAnswerArrayComplete([6, 8, 9], 10, 4, 12);
+    expect(qArray).toBeInstanceOf(Array);
+    expect(qArray).toHaveSize(5);
+});
+
+// Test getRandomIntInclusive function
+it("getRandomIntInclusive", function () {
+    let rInt = getRandomIntInclusive(1, 20);
+    expect(rInt).toBeInstanceOf(Number);
+    expect(rInt).toBeGreaterThan(0);
+    expect(rInt).toBeLessThan(21);
+});
+
+// Test shuffleArray function
+it("shuffleArray", function () {
+    let qArray =  shuffleArray([6, 8, 9, 10, 12, 14]);
+    expect(qArray).toBeInstanceOf(Array);
+    expect(qArray).toHaveSize(6);
+});
+
+});
+</script>

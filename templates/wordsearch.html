@@ -1,0 +1,387 @@
+<!--  
+/***********************************************************
+ jsWordsearch
+ Version:  0.4
+ Author:  Robert
+ Email:  brathna@gmail.com
+ Website:  http://jswordsearch.sourceforge.net/
+************************************************************
+ jsWordsearch, prints out a letter grid with words hidden inside.
+ Copyright (C) Robert Klein
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the
+ Free Software Foundation, Inc.
+ 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ or visit the following website:
+ http://www.opensource.org/licenses/gpl-license.php
+***********************************************************/
+
+INFO
+====
+Hotscripts will always have the newest website address and version
+info:  http://www.HotScripts.com/Detailed/61953.html
+
+
+SETUP
+=====
+The following uses default options:
+
+Upload the files:
+
+  wordsearch.htm
+  wordsearch.js
+  options.js
+  gridstyles.js
+  languages.js
+  mainlanguages.js
+
+in ASCII to your server. Make sure they are all in the same
+directory. Feel free to edit the wordsearch.htm file, which contains
+the html for the main table where you input your words.
+
+Adjust all the information to any changes you make in options.js.
+
+You will then go to wordsearch.htm in your browser. Feel free to 
+change the file name, wordsearch.htm, to anything you want.
+
+
+FILE LIST
+=========
+wordsearch.htm
+wordsearch.js
+options.js
+gridstyles.js
+languages.js
+readme.txt
+mainlanguages.js
+gnu_gpl.txt
+
+If you didn't get one of the files listed above, download the
+official release at:  http://jswordsearch.sourceforge.net/
+
+
+HELP ON THE LANGUAGES.JS FILE
+=============================
+This information is in regards to languages.js.
+
+<info coming soon>
+
+
+HELP ON THE MAINLANGUAGES.JS FILE
+=================================
+<coming soon>
+
+
+HELP ON THE GRIDSTYLES.JS FILE
+==============================
+<coming soon>
+
+
+INPUT SAVE GAME VIA URL
+=======================
+Create a game and press S. You should see a text box with some text
+in it. Copy the text (called savegame_text).
+
+wordfinder.htm?savegame=<savegame_text>
+
+Below the text box you'll see a link. Just right click this link and
+copy it. It's already in the URL format.
+
+If you're using a custom style, you will not be able to pass the
+saved game via the URL.
+
+
+CREDITS
+=======
+Author: Robert Klein
+Email: brathna@gmail.com
+
+Work on jsWordsearch was derived from FS.WordFinder. Both made by me
+and both released under the GPL.
+
+FS.WordFinder:
+http://fswordfinder.sourceforge.net/
+Project is on hold.
+
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8;" />
+
+<style type="text/css">
+
+html,body {
+  height:95%;
+  margin:0px;
+  font-family:Arial;
+  cursor: crosshair;
+}
+
+input {
+  padding:2px;
+  border:1px solid;
+  background:#CCC;
+  cursor:crosshair;
+}
+
+textarea {
+  padding:2px;
+  border:1px solid;
+  background:#CCC;
+  cursor:crosshair;
+}
+
+select {
+  padding:2px;
+  border:1px solid;
+  background:#CCC;
+  cursor:crosshair;
+}
+
+a {
+  text-decoration:none;
+  color:black;
+}
+
+tr,td {
+  border:1px solid black;
+  padding:5px;
+}
+
+.tablist {
+  border:1px solid black;
+  border-bottom:0px;
+  margin-left:5px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.tabcontent {
+  border:1px solid black;
+  padding:5px;
+  height:560px;
+  background:#DDD;
+}
+
+.inputTitle {
+  font-weight:bold;
+  font-size:12px;
+}
+
+.info {
+  font-size:12px;
+}
+
+li {
+  font-size:12px;
+  font-weight:normal;
+  margin-bottom:5px;
+}
+
+</style>
+
+<script type="text/javascript" src="wordsearch.js"></script>
+
+</head>
+
+<body onload="eventHandle();showStart();">
+
+<noscript>You must have Javascript enabled to use this script.</noscript>
+
+<script type="text/javascript">
+function changebgcolor(color) {
+  document.bgColor = color;
+}
+</script>
+
+<div style="text-align:center;margin-bottom:5px;margin-top:5px;font-size:16px;font-family:Arial;font-weight:bold;" id="title"><script type="text/javascript">document.write(title);</script></div>
+
+<div id="mainDiv" style="margin-left:auto;margin-right:auto;text-align:left;width:400px;visibility:hidden;">
+
+  <div id="header">
+    <div id="menuButton" style="text-align:center;width:400px;font-size:10px;display:none;" onclick="showMenu();">[<script type="text/javascript">document.write(LANG[selectedLanguage]['menu']);</script>]</div>
+  </div>
+
+  <div id="menu">
+
+    <div><a href="#" id="main" onclick="return tab(this.id);" class="tablist" style="background:#DDD"><script type="text/javascript">document.write(LANG[selectedLanguage]['main']);</script></a> <a href="#" id="options" onclick="return tab(this.id);" class="tablist" style="background:#BBB"><script type="text/javascript">document.write(LANG[selectedLanguage]['options']);</script></a> <a href="#" id="options2" onclick="return tab(this.id);" class="tablist" style="background:#BBB"><script type="text/javascript">document.write(LANG[selectedLanguage]['options2']);</script></a> <a href="#" id="load" onclick="return tab(this.id);" class="tablist" style="background:#BBB"><script type="text/javascript">document.write(LANG[selectedLanguage]['load']);</script></a> <a href="#" id="information" onclick="return tab(this.id);" class="tablist" style="background:#BBB"><script type="text/javascript">document.write(LANG[selectedLanguage]['info']);</script></a></div>
+
+    <div id="_main" style="display:block" class="tabcontent">
+      <div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['enter']);</script></div><div class="info">(<script type="text/javascript">document.write(LANG[selectedLanguage]['sep']);</script>)<br />
+      <textarea cols="45" rows="15" name="inputWords" id="inputWords" onfocus="inputActive=1;" onblur="inputActive=0;"></textarea></div>
+
+<div class="inputTitle"><br /><script type="text/javascript">document.write(LANG[selectedLanguage]['puzlang']);</script><span id="gridLanguageDiv">
+<script type="text/javascript"><!--
+  var echoThis = '<select id="gridLanguage">';
+  for(var a=0;a<=langsArray.length-1;a++) {
+    echoThis += '<option value="'+langsArray[a]+'">'+langsArray[a]+'</option>';
+  }
+  echoThis += '</select>';
+  document.write(echoThis);
+  echoThis = null;
+//-->
+</script></span></div>
+
+<script type="text/javascript"><!--
+if(wordlists) {
+  var echoThis = ' \
+    <div style="text-align:center;"><br />'+LANG[selectedLanguage]['or']+'<br /></div> \
+    <div><br /> \
+    <table cellspacing="0" style="width:100%"> \
+    <tr><td class="inputTitle">'+LANG[selectedLanguage]['wlnum']+'</td><td><input type="text" id="numWords" size="2" /></td></tr> \
+    <tr><td class="inputTitle">'+LANG[selectedLanguage]['wlwords']+'</td><td> \
+    <select id="wordList">';
+  for(var a=0;a<=wordListArray.length-1;a++) {
+    if(wordListArray[a]!='') echoThis += '<option value="'+wordListArray[a]+'">'+wordListArray[a].replace(/_|.txt/g," ")+'</option>';
+  }
+  echoThis += '</select></td></tr></table></div>';
+  document.write(echoThis);
+  echoThis = null;
+} else {
+  document.write('<input type="text" value="" id="numWords" style="display:none;" />');
+}
+
+document.write('<br /><div class="inputTitle">'+LANG[selectedLanguage]['man']+'<input type="checkbox" id="manually" value="1" /></div>');
+//-->
+</script>
+    </div>
+
+    <div id="_options" style="display:none;" class="tabcontent">
+      <table cellspacing="0" style="width:100%">
+      <tr><td style="width:50%;"><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['rows']);</script></div></td><td><div><input type="text" id="numRows" value="" size="2" maxlength="3" /></div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['cols']);</script></div></td><td><div><input type="text" id="numCols" value="" size="2" maxlength="3" /></div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['fontsize']);</script></div></td><td><div><input type="text" id="fontSize" value="" size="2" /> mm</div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['fontcolor']);</script></div></td><td><div><input type="text" id="fontColor" value="" size="10" /></div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['bgcolor']);</script></div></td><td><div><input type="text" id="bgColor" value="" size="10" /></div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['hlcolor']);</script></div></td><td><div><input type="text" id="hlColor" value="" size="10" /></div></td></tr>
+      <tr><td><div class="inputTitle"><script type="text/javascript">document.write(LANG[selectedLanguage]['gridstyle']);</script></div></td><td><div id="gridStyleArrayDiv">
+<script type="text/javascript"><!--
+  var echoThis = '<select id="gridStyle"><option value="square">Square</option>';
+  for(var a=0;a<=gridStyleArray.length-1;a++) {
+    echoThis += '<option value="'+gridStyleArray[a]+'">'+gridStyleArray[a]+'</option>';
+  }
+  echoThis += '<option value="custom">Custom</option>';
+  echoThis += '</select>';
+  document.write(echoThis);
+  echoThis = null;
+//-->
+</script></div>
+<span onclick="makeCustom();" style="padding:0px 3px 0px 3px;border:1px solid black;font-size:11px;text-align:center;"><script type="text/javascript">document.write(LANG[selectedLanguage]['mcustom']);</script></span> <span onclick="if(customStyle = prompt(LANG[selectedLanguage]['inputcs'])) document.getElementById('gridStyle').options[document.getElementById('gridStyle').options.length-1].selected = 'true';" style="padding:0px 3px 0px 3px;border:1px solid black;font-size:11px;text-align:center;"><script type="text/javascript">document.write(LANG[selectedLanguage]['input']);</script></span>
+</td></tr>
+
+      </table>
+    </div>
+
+    <div id="_options2" style="display:none" class="tabcontent">
+      <select name="BorF" id="BorF" style="margin-left:10px;margin-top:10px;">
+        <option value="regular"><script type="text/javascript">document.write(LANG[selectedLanguage]['borf']);</script></option>
+        <option value="bonly"><script type="text/javascript">document.write(LANG[selectedLanguage]['bonly']);</script></option>
+        <option value="fonly"><script type="text/javascript">document.write(LANG[selectedLanguage]['fonly']);</script></option>
+      </select>
+
+      <br /><br />
+
+      <select name="diag" id="diag" style="margin-left:10px" onchange="if(document.getElementById('diag').options[1].selected==true && document.getElementById('uand').options[1].selected==true) document.getElementById('uand').options[2].selected=true; else if(document.getElementById('diag').options[0].selected==true && document.getElementById('uand').options[1].selected==true) document.getElementById('uand').options[0].selected=true; else if(document.getElementById('diag').options[1].selected==true && document.getElementById('uand').options[0].selected==true) document.getElementById('uand').options[2].selected=true;">
+        <option value="diag"><script type="text/javascript">document.write(LANG[selectedLanguage]['diag']);</script></option>
+        <option value="diagonly"><script type="text/javascript">document.write(LANG[selectedLanguage]['donly']);</script></option>
+        <option value="nodiag"><script type="text/javascript">document.write(LANG[selectedLanguage]['nodiag']);</script></option>
+      </select>
+
+      <br /><br />
+
+      <select name="upanddown" id="uand" style="margin-left:10px" onchange="if(document.getElementById('uand').options[1].selected==true && document.getElementById('diag').options[1].selected==true) document.getElementById('diag').options[2].selected=true; else if(document.getElementById('uand').options[0].selected==true && document.getElementById('diag').options[1].selected==true) document.getElementById('diag').options[0].selected=true; else if(document.getElementById('uand').options[1].selected==true && document.getElementById('diag').options[0].selected==true) document.getElementById('diag').options[2].selected=true;">
+        <option value="uand"><script type="text/javascript">document.write(LANG[selectedLanguage]['uandd']);</script></option>
+        <option value="uandonly"><script type="text/javascript">document.write(LANG[selectedLanguage]['uanddo']);</script></option>
+        <option value="nouand"><script type="text/javascript">document.write(LANG[selectedLanguage]['nouandd']);</script></option>
+      </select>
+
+      <br /><br />
+
+      <span style="margin-left:10px"><script type="text/javascript">document.write(LANG[selectedLanguage]['wlplace']);</script>: <select id="wordListPlacement">
+        <option value="right"><script type="text/javascript">document.write(LANG[selectedLanguage]['right']);</script></option>
+        <option value="bottom"><script type="text/javascript">document.write(LANG[selectedLanguage]['bottom']);</script></option>
+      </select></span>
+
+      <br /><br />
+
+      <input type="checkbox" id="sortAlpha" style="margin-left:10px;" value="TRUE" /> <script type="text/javascript">document.write(LANG[selectedLanguage]['sort']);</script><br />
+      <input type="checkbox" id="lowerCase" style="margin-left:10px;" value="TRUE" /> <script type="text/javascript">document.write(LANG[selectedLanguage]['lower']);</script><br />
+      <input type="checkbox" id="useLetters" style="margin-left:10px;" value="TRUE" /> <script type="text/javascript">document.write(LANG[selectedLanguage]['wordlist']);</script><br />
+    </div>
+
+    <div id="_load" style="display:none" class="tabcontent">
+      <div style="text-align:center;">
+        <br /><script type="text/javascript">document.write(LANG[selectedLanguage]['paste']);</script>:<br />
+        <textarea cols="40" rows="3" id="code"></textarea>
+        <script type="text/javascript">document.write('<br /><br /><input type="button" value="'+LANG[selectedLanguage]['load']+'" id="loadGameButton" onclick="reloadGame();" />');</script>
+      </div>
+    </div>
+
+    <div id="_information" style="display:none" class="tabcontent">
+      <div style="padding:10px;">
+        <script type="text/javascript">document.write(LANG[selectedLanguage]['high']);</script>:
+        <ol>
+        <li><script type="text/javascript">document.write(LANG[selectedLanguage]['high2']);</script></li>
+        <li><script type="text/javascript">document.write(LANG[selectedLanguage]['high3']);</script></li>
+        <li><script type="text/javascript">document.write(LANG[selectedLanguage]['high4']);</script></li>
+        </ol>
+        <script type="text/javascript">document.write(LANG[selectedLanguage]['keys']);</script>:<br />
+        <script type="text/javascript">document.write(LANG[selectedLanguage]['keyR']);</script><br />
+        <script type="text/javascript">document.write(LANG[selectedLanguage]['keyS']);</script><br />
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;" id="buttons"><br />
+    <script type="text/javascript">document.write('<input type="button" value="Return" id="blahblah" style="visibility:hidden;width:50px;" />&nbsp;&nbsp;<input type="button" value="'+LANG[selectedLanguage]['create']+'" id="create" onmouseup="reload=0;" onclick="if(document.getElementById(\'inputWords\').value==\'\' && !document.getElementById(\'numWords\').value) { alert(\''+LANG[selectedLanguage]['nowords']+'\'); } else { if(d.getElementById(\'manually\').checked) manuallyPlace(); else createPuzzle(1); }" style="width:100px;" />&nbsp;&nbsp;<input type="button" value="'+LANG[selectedLanguage]['save']+'" onclick="saveSettings();" style="width:100px;" />&nbsp;&nbsp;<input type="button" value="'+LANG[selectedLanguage]['return']+'" id="returnToGame" style="visibility:hidden;width:50px;" onclick="returnToGame();" />');</script>
+
+    <br /><br />
+    <select id="mainLang" onchange="changeLanguages();" style="font-size:11px;">
+      <script type="text/javascript"><!--
+        var t;
+        for(var a=0;a<=mainLanguages.length-1;a++) {
+          t = (mainLanguages[a]==selectedLanguage) ? 'selected="selected"' : '';
+          echoThis += '<option value="'+mainLanguages[a]+'" '+t+'>'+mainLanguages[a]+'</option>';
+        }
+        echoThis += '</select>';
+        document.write(echoThis);
+        echoThis = null;
+      //-->
+      </script>
+    </select>
+<!--
+Please keep this link visible and intact.
+-->
+<div style="text-align:center;font-size:12px;font-family:Arial;"><br /><a href="http://jswordsearch.sourceforge.net/">jsWordsearch 0.4</a></div>
+  </div>
+
+</div>
+
+  <div id="puzzle" style="width:99%;height:95%;display:none;">
+    <table border="0" style="height:99%;width:95%;"><tr><td style="text-align:center;border:0px;">
+      <div id="puzzleText"></div>
+    </td></tr></table>
+  </div>
+
+  <div id="saveGameForm" style="display:none;margin-left:20px;">
+    <textarea cols="40" rows="3" id="saveGameData"></textarea> <script type="text/javascript">document.write('<input type="button" value="'+LANG[selectedLanguage]['cont']+'" onclick="document.getElementById(\'puzzle\').style.display=\'block\';document.getElementById(\'saveGameForm\').style.display=\'none\';puzzleActive=1;" />');</script>
+    <br /><br /><div id="saveGameURL"></div>
+  </div>
+
+</body>
+
+</html>

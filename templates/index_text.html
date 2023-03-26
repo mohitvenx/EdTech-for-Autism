@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Speech-to-Text App</title>
+  </head>
+  <body>
+    <h1>Speech-to-Text App</h1>
+    <form method="POST" action="/process_media" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Submit">
+    </form>
+    
+    <form method="POST" action="{{ url_for('process_media') }}" enctype="multipart/form-data">
+      <input type="file" name="audio_file">
+      <button type="submit">Transcribe Audio</button>
+    </form>
+    {% if text %}
+      <h2>Transcription:</h2>
+      <p>{{ text }}</p>
+    {% endif %}
+  </body>
+</html>

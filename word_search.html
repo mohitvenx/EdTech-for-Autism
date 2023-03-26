@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Word Search Game</h1>
+        <div id="grid"></div>
+        <div id="timer">Time: 00:00</div>
+        <button id="newGame">New Game</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<script>
+    const grid = document.getElementById("grid");
+const newGameBtn = document.getElementById("newGame");
+const timerElement = document.getElementById("timer");
+
+let timerInterval;
+let seconds = 0;
+let minutes = 0;
+
+function createGrid() {
+    for (let i = 0; i < 100; i++) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.textContent = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+        grid.appendChild(cell);
+    }
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    seconds = 0;
+    minutes = 0;
+    timerElement.textContent = "Time: 00:00";
+    timerInterval = setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+            minutes++;
+            seconds = 0;
+        }
+        timerElement.textContent = `Time: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }, 1000);
+}
+
+newGameBtn.addEventListener("click", () => {
+    grid.innerHTML = "";
+    createGrid();
+    startTimer();
+});
+
+createGrid();
+startTimer();
+
+</script>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    margin: 1rem;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+</style>

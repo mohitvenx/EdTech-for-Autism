@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Harbor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Inter", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("https://images.unsplash.com/photo-1476189297164-5f6da5eddd23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 20px;
+}
+.w3-bar-item{
+  font-size: 18px;
+}
+
+
+.wrap {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .tile {
+        display: block;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        background-color: #ccc;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 200px;
+      }
+      body {
+    background-color: #ffffff;
+    font: 12px/1.4 "Gotham SSm A","Helvetica Neue",Helvetica,Arial;
+  }
+  
+  .wrap {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tile {
+    background: #ffffff linear-gradient(to left, #3B3D3F 50%, #2c2d2f 50%) repeat scroll 0 0 / 200% 100%;
+    color: #FFF;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    position: relative;
+    text-align: flex-end;
+    text-decoration: none;
+    transition: background-position 0.1s ease 0s;
+    vertical-align: top;
+  }
+  
+  .tile:hover {
+    background-position: 100% 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    -webkit-transform: scale(0.97) perspective(400px);
+    -moz-transform: scale(0.97) perspective(400px);
+    -ms-transform: scale(0.97) perspective(400px);
+    transform: scale(0.97) perspective(400px);
+  }
+  
+  .tile:active,  
+  .tile.active {  
+    background: #b4afaf;
+  }
+  
+  .tile > span {
+    bottom: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    left: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .tile-small {
+    height: 64px;
+    width: 64px;
+  }
+  
+  .tile-medium {
+    height: 128px;
+    width: 128px;
+  }
+  
+  .tile-large {
+    height: 256px;
+    width: 256px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button w3-wide">Harbor</a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="#team" class="w3-bar-item w3-button"><i ></i> TEAM</a>
+      <a href="#work" class="w3-bar-item w3-button"><i></i> WORK</a>
+      <a href="{{ url_for('sign') }}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN/SIGN-UP</a>
+    </div>
+    <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+  <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
+  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">SOLUTIONS</a>
+  <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">ACCOUNT</a>
+</nav>
+
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-left w3-text-white" style="padding:48px">
+    <span class="w3-jumbo w3-hide-small">Learn without Limits</span><br>
+    <span class="w3-xxlarge w3-hide-large w3-hide-medium">Learn without Limits</span><br>
+    <span class="w3-large">Empowering children of all abilities through technology.</span>
+    <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
+  </div> 
+ 
+</header>
+
+<!-- About Section -->
+<div class="w3-container" style="padding:128px 16px" id="about">
+  <h3 class="w3-center">ABOUT THE COMPANY</h3>
+  <p class="w3-center w3-large">Key features of our company</p>
+  <div class="w3-row-padding w3-center" style="margin-top:64px">
+    <div class="w3-quarter">
+      <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Responsive</p>
+      <p>The website optimized for different devices and screen sizes. This will ensure that children with autism can access the site from their preferred device, whether it's a desktop computer, tablet, or mobile phone</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-heart w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Passion</p>
+      <p>Team of passionate people who are dedicated to helping children with autism </p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-diamond w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Design</p>
+      <p>Our software provides a safe and stimulating environment where children can learn at their own pace, develop social skills, and build confidence</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-cog w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Support</p>
+      <p>Offering resources, providing personalized support, and engaging with the community to continuously improve the site.</p>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Team Section -->
+<div class="w3-container" style="padding:128px 16px" id="team">
+  <h3 class="w3-center">THE TEAM</h3>
+  <p class="w3-center w3-large">The ones who runs this company</p>
+  <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{{ url_for('static', filename='Mohit.jpg') }}" alt="mo" style="width: 300px; height: 300px;">
+        <div class="w3-container">
+          <h3>Mohit Venkatesh</h3>
+          <p class="w3-opacity">BACK END</p>
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{{ url_for('static', filename='Nitish.jpg') }}" alt="nitu" style="width: 300px; height: 300px;">
+        <div class="w3-container">
+          <h3>Nitish V</h3>
+          <p class="w3-opacity">BACK END</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{{ url_for('static', filename='Aadhith.jpg') }}" alt="aadhith" style="width: 300px; height: 300px;">
+        <div class="w3-container">
+          <h3>Aadhith S</h3>
+          <p class="w3-opacity">FRONT END</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <img src="{{ url_for('static', filename='Prajna.jpg') }}" alt="praj" style="width: 300px; height: 300px;">
+        <div class="w3-container">
+          <h3>Prajna G</h3>
+          <p class="w3-opacity">FRONT END</p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Work Section -->
+<div class="w3-container" style="padding:128px 16px" id="work">
+  <h3 class="w3-center">OUR WORK</h3>
+  <p class="w3-center w3-large">What we've done for people</p>
+  <div class="wrap">
+    <a href="#" class="tile tile-large">
+      <img src="{{ url_for('static', filename='ig.png') }}" alt="Logo" style="width: 250px; height: 250px;">
+      
+    </a>
+
+    <a href="#" class="tile tile-large">
+      <img src="{{ url_for('static', filename='gt.png') }}" alt="Logo" style="width: 250px; height: 250px;">
+      
+    </a>
+
+    <a href="#" class="tile tile-large">
+      <img src="{{ url_for('static', filename='ed.png') }}" alt="Logo" style="width: 250px; height: 250px;">
+      
+    </a>
+
+  </div>
+  
+  
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright" title="Close Modal Image">×</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+
+
+
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+// Toggle between showing and hiding the sidebar when clicking the menu icon
+var mySidebar = document.getElementById("mySidebar");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+  } else {
+    mySidebar.style.display = 'block';
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+}
+
+const tiles = document.querySelectorAll('.tile');
+
+tiles.forEach((tile) => {
+  tile.addEventListener('click', () => {
+    tiles.forEach((tile) => {
+      tile.classList.remove("active");
+    });
+    tile.classList.add("active");
+  })
+});
+
+</script>
+
+</body>
+</html>

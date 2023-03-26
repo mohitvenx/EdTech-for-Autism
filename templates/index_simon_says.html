@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A memorizing colors game ~ Un juego de memorizar colores.">
+        <title>Simon Says</title>
+    </head>
+    <body>
+        <div class="score-container">
+            <span>Score: </span>
+            <span id="score">0</span>
+        </div>
+        <div class="colors-container">
+            <div class="color skyblue" id="color0" data-color="color0"></div>
+            <div class="color violet" id="color1" data-color="color1"></div>
+            <div class="color orange" id="color2" data-color="color2"></div>
+            <div class="color green" id="color3" data-color="color3"></div>
+            <div class="play-button" id="play-button" onclick="play()">Play</div>
+        </div>
+    </body>
+    <a href="{{ url_for('index_gt') }}" class="button button-click-me" target="_blank">Start Gaze tracking</a>
+    <a href="{{ url_for('plot') }}" class="button button-stop">Stop Gaze Tracking</a>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</html>
+
+<style>
+    * {
+     box-sizing: border-box;
+     margin: 0px;
+     padding: 0px;
+ }
+
+ .button-click-me,
+.button-stop {
+  position: fixed;
+  top:0;
+  border-radius: 20px;
+  font-weight: bold;
+  color: black;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.button-click-me {
+  left: 0;
+  background-color: white;
+}
+
+.button-stop {
+  right: 0;
+  background-color: white;
+}
+
+body {
+    align-items: center;
+    background-color: #141d26;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.score-container {
+    color: whitesmoke;
+    display: flex;
+    font-weight: bold;
+    font-size: 2rem;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+#score {
+    margin-left: 5px;
+}
+
+.colors-container {
+    border-radius: 50%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 315px;
+    overflow: hidden;
+    position: relative;
+    width: 315px;
+}
+.color {
+    background-color: #9ACD32;
+    height: auto;
+    width: 100%;
+}
+
+.skyblue {
+    background-color: #0086b3;
+}
+.skyblue.light {
+    background-color: #7dadbd;
+}
+
+.violet {
+    background-color: #c26860;
+}
+.violet.light {
+    background-color: #e99088;
+}
+
+.orange {
+    background-color: #c38d4f;
+}
+.orange.light {
+    background-color: #ffc077;
+}
+
+.green {
+    background-color: #548278;
+}
+.green.light {
+    background-color: #86cabb;
+}
+
+.play-button {
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    font-size: 2rem;
+    font-weight: bold;
+    height: 40px;
+    justify-content: center;
+    left: calc(50% - 50px);
+    position: absolute;
+    top: calc(50% - 20px);
+    width: 100px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+@media (min-width: 420px) {
+    .colors-container {
+        height: 415px;
+        width: 415px;
+    } 
+}
+@media (min-width: 520px) {
+    .score-container {
+        font-size: 3rem;
+    }
+    .colors-container {
+        height: 515px;
+        width: 515px;
+    } 
+    .play-button {
+        font-size: 3rem;
+        height: 80px;
+        left: calc(50% - 80px);
+        top: calc(50% - 40px);
+        width: 160px;
+    }
+}
+@media (min-width: 620px) {
+    .colors-container {
+        height: 615px;
+        width: 615px;
+    } 
+}
+</style>
+
+<script>
+    const color0 = document.getElementById("color0"),
+      color1 = document.getElementById("color1"),
+      color2 = document.getElementById("color2"),
+      color3 = document.getElementById("color3"),
+      scoreBox = document.getElementById("score"),
+      playButton = document.getElementById("play-button"),
+      maxLevel = 100
+var sequence, level = 1, subLevel = 0, score = 0
+
+function play() {
+    playButton.classList.add("hidden")
+    genSequence()
+    sequenceColors()
+    addEvents()
+}
+
+const sequenceColors = () => {
+    removeEvents()
+    let i
+    for (let i = 0; i < level; i++) {
+        switch(sequence[i]) {
+            case 0:
+                setTimeout(() => longLightUp(color0), 1000 * i)
+                break
+            case 1:
+                setTimeout(() => longLightUp(color1), 1000 * i)
+                break
+            case 2:
+                setTimeout(() => longLightUp(color2), 1000 * i)
+                break
+            case 3:
+                setTimeout(() => longLightUp(color3), 1000 * i)
+                break
+        }
+    }
+    setTimeout(() => addEvents(), 1000 * i + 1)
+}
+
+const pickColor = event => {
+    shortLightUp(event.target);
+    (colorToNumber(event.target.dataset.color) == sequence[subLevel])
+    ? win()
+    : lose()
+}
+
+
+const addEvents = () => {
+    color0.addEventListener("click", pickColor)
+    color1.addEventListener("click", pickColor)
+    color2.addEventListener("click", pickColor)
+    color3.addEventListener("click", pickColor)
+}
+const removeEvents = () => {
+    color0.removeEventListener("click", pickColor)
+    color1.removeEventListener("click", pickColor)
+    color2.removeEventListener("click", pickColor)
+    color3.removeEventListener("click", pickColor)
+}
+
+const win = () => {
+    subLevel++
+    if (subLevel == level) {
+        subLevel = 0; score += 100; level++
+        scoreBox.innerHTML = score
+        setTimeout(() => sequenceColors(), 1000)
+    }
+}
+const lose = () => {
+    score = 0; subLevel = 0; level = 1
+    scoreBox.innerHTML = score
+    swal("", "GAME OVER", "error")
+    genSequence()
+    removeEvents()
+    playButton.classList.remove("hidden")
+}
+
+const genSequence = () => {
+    sequence = new Array(maxLevel).fill(0).map(n => Math.floor(Math.random() * 4))
+}
+
+const longLightUp = color => {
+    color.classList.add("light")
+    setTimeout(() => color.classList.remove("light"), 600)
+}
+const shortLightUp = color => {
+    color.classList.add("light")
+    setTimeout(() => color.classList.remove("light"), 200)
+}
+
+const colorToNumber = color => {
+    switch(color) {
+        case "color0":
+            return 0
+            break
+        case "color1":
+            return 1
+            break
+        case "color2":
+            return 2
+            break
+        case "color3":
+            return 3
+    }
+}
+</script>

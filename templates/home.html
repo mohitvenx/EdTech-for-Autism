@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>My Page</title>
+
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">Harbor</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="{{ url_for('home') }}" class="w3-bar-item w3-button">INTERACTIVE GAMES</a>
+          <a href="{{ url_for('index_gt') }}" class="w3-bar-item w3-button"><i></i>GAZE TRACKING</a>
+          <a href="{{ url_for('emotion') }}" class="w3-bar-item w3-button"><i ></i> EMOTION DETECTION</a>
+          <a href="{{ url_for('sign') }}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOG OUT</a>
+    </div>
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <style>
+    .w3-bar .w3-button {
+      padding: 20px;
+    }
+    .w3-bar-item{
+    font-size: 18px;
+    }
+
+      .wrap {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .tile {
+        display: block;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        background-color: #ccc;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 200px;
+      }
+      body {
+    background-color: #191919;
+    font: 12px/1.4 "Gotham SSm A","Helvetica Neue",Helvetica,Arial;
+  }
+  
+  .wrap {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tile {
+    background: #2c2d2f linear-gradient(to left, #3B3D3F 50%, #2c2d2f 50%) repeat scroll 0 0 / 200% 100%;
+    color: #FFF;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    position: relative;
+    text-align: flex-end;
+    text-decoration: none;
+    transition: background-position 0.1s ease 0s;
+    vertical-align: top;
+  }
+  
+  .tile:hover {
+    background-position: 100% 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    -webkit-transform: scale(0.97) perspective(400px);
+    -moz-transform: scale(0.97) perspective(400px);
+    -ms-transform: scale(0.97) perspective(400px);
+    transform: scale(0.97) perspective(400px);
+  }
+  
+  .tile:active,  
+  .tile.active {  
+    background: #b4afaf;
+  }
+  
+  .tile > span {
+    bottom: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    left: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .tile-small {
+    height: 64px;
+    width: 64px;
+  }
+  
+  .tile-medium {
+    height: 128px;
+    width: 128px;
+  }
+  
+  .tile-large {
+    height: 256px;
+    width: 256px;
+  }
+  </style>
+  </head>
+
+  <br></br>
+  <br></br>
+  <br></br>
+
+  <body>
+    <div class="wrap">
+      <!--<a href="{{ url_for('simonsays') }}" class="tile tile-large">
+        <img src="{{ url_for('static', filename='ss.png') }}"  style="width: 250px; height: 250px;">
+        
+      
+      </a>-->
+      <div style="display:flex; flex-direction:row;">
+        <a href="{{ url_for('simonsays') }}" class="tile tile-large">
+          <img src="{{ url_for('static', filename='ss.png') }}"  style="width: 250px; height: 250px;">
+        </a>
+        
+        <a href="{{ url_for('pyqt5') }}" class="tile tile-large">
+          <img src="{{ url_for('static', filename='ws.png') }}"  style="width: 250px; height: 250px;">
+        </a>
+        
+        <a href="{{ url_for('pygame') }}"  class="tile tile-large">
+          <img src="{{ url_for('static', filename='fm.png') }}"  style="width: 250px; height: 250px;">      
+        </a>
+      </div>
+      
+      <div style="display:flex; flex-direction:row;">
+        <a href="https://mohitvenx.github.io/balloon-math/" class="tile tile-large">
+          <img src="{{ url_for('static', filename='om.png') }}"  style="width: 250px; height: 250px;">
+        </a>
+        
+        <a href="https://mohitvenx.github.io/jiggsaw/" class="tile tile-large">
+          <img src="{{ url_for('static', filename='js.png') }}"  style="width: 250px; height: 250px;">
+        </a>
+      </div>
+      
+
+    </div>
+  </body>
+</html>
+<script>
+  const tiles = document.querySelectorAll('.tile');
+
+tiles.forEach((tile) => {
+  tile.addEventListener('click', () => {
+    tiles.forEach((tile) => {
+      tile.classList.remove("active");
+    });
+    tile.classList.add("active");
+  })
+});
+</script>

@@ -1,0 +1,23 @@
+
+<!-- Include the SocketIO JavaScript library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"></script>
+
+<!-- Connect to the SocketIO server -->
+<script>
+  var socket = io.connect('http://' + document.domain + ':' + location.port);
+</script>
+
+<!-- Start the gaze tracker function when the "Start" button is clicked -->
+<button onclick="socket.emit('start_gaze_tracker')">Start</button>
+
+<!-- Stop the gaze tracker function when the "Back" button is clicked -->
+<button onclick="socket.emit('stop_gaze_tracker')">Back</button>
+
+<!-- Plot the gaze tracking data -->
+<script>
+  socket.on('gaze_data', function(gaze_data) {
+    // Replace with your actual plotting code
+    console.log(gaze_data);
+  });
+</script>
+
